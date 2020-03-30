@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.bupt.slms.mapper.RepairBillMapper">
+  <resultMap id="BaseResultMap" type="edu.bupt.slms.bean.RepairBill">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="aId" jdbcType="INTEGER" property="aId" />
+    <result column="eId" jdbcType="INTEGER" property="eId" />
+    <result column="timeLimit" jdbcType="INTEGER" property="timeLimit" />
+    <result column="startTime" jdbcType="DATE" property="startTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, aId, eId, timeLimit, startTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from repair_bill
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from repair_bill
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.bupt.slms.bean.RepairBill" useGeneratedKeys="true">
+    insert into repair_bill (aId, eId, timeLimit, 
+      startTime)
+    values (#{aId,jdbcType=INTEGER}, #{eId,jdbcType=INTEGER}, #{timeLimit,jdbcType=INTEGER}, 
+      #{startTime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.bupt.slms.bean.RepairBill" useGeneratedKeys="true">
+    insert into repair_bill
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="aId != null">
+        aId,
+      </if>
+      <if test="eId != null">
+        eId,
+      </if>
+      <if test="timeLimit != null">
+        timeLimit,
+      </if>
+      <if test="startTime != null">
+        startTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="aId != null">
+        #{aId,jdbcType=INTEGER},
+      </if>
+      <if test="eId != null">
+        #{eId,jdbcType=INTEGER},
+      </if>
+      <if test="timeLimit != null">
+        #{timeLimit,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.bupt.slms.bean.RepairBill">
+    update repair_bill
+    <set>
+      <if test="aId != null">
+        aId = #{aId,jdbcType=INTEGER},
+      </if>
+      <if test="eId != null">
+        eId = #{eId,jdbcType=INTEGER},
+      </if>
+      <if test="timeLimit != null">
+        timeLimit = #{timeLimit,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        startTime = #{startTime,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.bupt.slms.bean.RepairBill">
+    update repair_bill
+    set aId = #{aId,jdbcType=INTEGER},
+      eId = #{eId,jdbcType=INTEGER},
+      timeLimit = #{timeLimit,jdbcType=INTEGER},
+      startTime = #{startTime,jdbcType=DATE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.bupt.slms.mapper.LightMapper">
+  <resultMap id="BaseResultMap" type="edu.bupt.slms.bean.Light">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="pId" jdbcType="INTEGER" property="pId" />
+    <result column="install_date" jdbcType="DATE" property="install_date" />
+    <result column="status" jdbcType="OTHER" property="status" />
+    <result column="brightness" jdbcType="INTEGER" property="brightness" />
+    <result column="wLightId" jdbcType="INTEGER" property="wLightId" />
+    <result column="power" jdbcType="DOUBLE" property="power" />
+    <result column="voltage" jdbcType="DOUBLE" property="voltage" />
+    <result column="current" jdbcType="DOUBLE" property="current" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, pId, install_date, `status`, brightness, wLightId, `power`, voltage, `current`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from light
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from light
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.bupt.slms.bean.Light" useGeneratedKeys="true">
+    insert into light (pId, install_date, `status`, 
+      brightness, wLightId, `power`, 
+      voltage, `current`)
+    values (#{pId,jdbcType=INTEGER}, #{install_date,jdbcType=DATE}, #{status,jdbcType=OTHER}, 
+      #{brightness,jdbcType=INTEGER}, #{wLightId,jdbcType=INTEGER}, #{power,jdbcType=DOUBLE}, 
+      #{voltage,jdbcType=DOUBLE}, #{current,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.bupt.slms.bean.Light" useGeneratedKeys="true">
+    insert into light
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pId != null">
+        pId,
+      </if>
+      <if test="install_date != null">
+        install_date,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="brightness != null">
+        brightness,
+      </if>
+      <if test="wLightId != null">
+        wLightId,
+      </if>
+      <if test="power != null">
+        `power`,
+      </if>
+      <if test="voltage != null">
+        voltage,
+      </if>
+      <if test="current != null">
+        `current`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pId != null">
+        #{pId,jdbcType=INTEGER},
+      </if>
+      <if test="install_date != null">
+        #{install_date,jdbcType=DATE},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=OTHER},
+      </if>
+      <if test="brightness != null">
+        #{brightness,jdbcType=INTEGER},
+      </if>
+      <if test="wLightId != null">
+        #{wLightId,jdbcType=INTEGER},
+      </if>
+      <if test="power != null">
+        #{power,jdbcType=DOUBLE},
+      </if>
+      <if test="voltage != null">
+        #{voltage,jdbcType=DOUBLE},
+      </if>
+      <if test="current != null">
+        #{current,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.bupt.slms.bean.Light">
+    update light
+    <set>
+      <if test="pId != null">
+        pId = #{pId,jdbcType=INTEGER},
+      </if>
+      <if test="install_date != null">
+        install_date = #{install_date,jdbcType=DATE},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=OTHER},
+      </if>
+      <if test="brightness != null">
+        brightness = #{brightness,jdbcType=INTEGER},
+      </if>
+      <if test="wLightId != null">
+        wLightId = #{wLightId,jdbcType=INTEGER},
+      </if>
+      <if test="power != null">
+        `power` = #{power,jdbcType=DOUBLE},
+      </if>
+      <if test="voltage != null">
+        voltage = #{voltage,jdbcType=DOUBLE},
+      </if>
+      <if test="current != null">
+        `current` = #{current,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.bupt.slms.bean.Light">
+    update light
+    set pId = #{pId,jdbcType=INTEGER},
+      install_date = #{install_date,jdbcType=DATE},
+      `status` = #{status,jdbcType=OTHER},
+      brightness = #{brightness,jdbcType=INTEGER},
+      wLightId = #{wLightId,jdbcType=INTEGER},
+      `power` = #{power,jdbcType=DOUBLE},
+      voltage = #{voltage,jdbcType=DOUBLE},
+      `current` = #{current,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

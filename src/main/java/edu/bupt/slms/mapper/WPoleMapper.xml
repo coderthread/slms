@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.bupt.slms.mapper.WPoleMapper">
+  <resultMap id="BaseResultMap" type="edu.bupt.slms.bean.WPole">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="capacity" jdbcType="INTEGER" property="capacity" />
+    <result column="height" jdbcType="DOUBLE" property="height" />
+    <result column="load_bearing" jdbcType="DOUBLE" property="load_bearing" />
+    <result column="production_date" jdbcType="DATE" property="production_date" />
+    <result column="purchase_date" jdbcType="DATE" property="purchase_date" />
+    <result column="life_time" jdbcType="VARCHAR" property="life_time" />
+    <result column="manufacturer" jdbcType="VARCHAR" property="manufacturer" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, `type`, `name`, `number`, capacity, height, load_bearing, production_date, purchase_date, 
+    life_time, manufacturer, price
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from w_pole
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from w_pole
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.bupt.slms.bean.WPole" useGeneratedKeys="true">
+    insert into w_pole (`type`, `name`, `number`, 
+      capacity, height, load_bearing, 
+      production_date, purchase_date, life_time, 
+      manufacturer, price)
+    values (#{type,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER}, 
+      #{capacity,jdbcType=INTEGER}, #{height,jdbcType=DOUBLE}, #{load_bearing,jdbcType=DOUBLE}, 
+      #{production_date,jdbcType=DATE}, #{purchase_date,jdbcType=DATE}, #{life_time,jdbcType=VARCHAR}, 
+      #{manufacturer,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.bupt.slms.bean.WPole" useGeneratedKeys="true">
+    insert into w_pole
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="number != null">
+        `number`,
+      </if>
+      <if test="capacity != null">
+        capacity,
+      </if>
+      <if test="height != null">
+        height,
+      </if>
+      <if test="load_bearing != null">
+        load_bearing,
+      </if>
+      <if test="production_date != null">
+        production_date,
+      </if>
+      <if test="purchase_date != null">
+        purchase_date,
+      </if>
+      <if test="life_time != null">
+        life_time,
+      </if>
+      <if test="manufacturer != null">
+        manufacturer,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="capacity != null">
+        #{capacity,jdbcType=INTEGER},
+      </if>
+      <if test="height != null">
+        #{height,jdbcType=DOUBLE},
+      </if>
+      <if test="load_bearing != null">
+        #{load_bearing,jdbcType=DOUBLE},
+      </if>
+      <if test="production_date != null">
+        #{production_date,jdbcType=DATE},
+      </if>
+      <if test="purchase_date != null">
+        #{purchase_date,jdbcType=DATE},
+      </if>
+      <if test="life_time != null">
+        #{life_time,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacturer != null">
+        #{manufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.bupt.slms.bean.WPole">
+    update w_pole
+    <set>
+      <if test="type != null">
+        `type` = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null">
+        `number` = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="capacity != null">
+        capacity = #{capacity,jdbcType=INTEGER},
+      </if>
+      <if test="height != null">
+        height = #{height,jdbcType=DOUBLE},
+      </if>
+      <if test="load_bearing != null">
+        load_bearing = #{load_bearing,jdbcType=DOUBLE},
+      </if>
+      <if test="production_date != null">
+        production_date = #{production_date,jdbcType=DATE},
+      </if>
+      <if test="purchase_date != null">
+        purchase_date = #{purchase_date,jdbcType=DATE},
+      </if>
+      <if test="life_time != null">
+        life_time = #{life_time,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacturer != null">
+        manufacturer = #{manufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.bupt.slms.bean.WPole">
+    update w_pole
+    set `type` = #{type,jdbcType=VARCHAR},
+      `name` = #{name,jdbcType=VARCHAR},
+      `number` = #{number,jdbcType=INTEGER},
+      capacity = #{capacity,jdbcType=INTEGER},
+      height = #{height,jdbcType=DOUBLE},
+      load_bearing = #{load_bearing,jdbcType=DOUBLE},
+      production_date = #{production_date,jdbcType=DATE},
+      purchase_date = #{purchase_date,jdbcType=DATE},
+      life_time = #{life_time,jdbcType=VARCHAR},
+      manufacturer = #{manufacturer,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

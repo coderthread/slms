@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.bupt.slms.mapper.PoleMapper">
+  <resultMap id="BaseResultMap" type="edu.bupt.slms.bean.Pole">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="wpId" jdbcType="INTEGER" property="wpId" />
+    <result column="wId" jdbcType="INTEGER" property="wId" />
+    <result column="position" jdbcType="VARCHAR" property="position" />
+    <result column="longitude" jdbcType="DOUBLE" property="longitude" />
+    <result column="latitude" jdbcType="DOUBLE" property="latitude" />
+    <result column="install_date" jdbcType="DATE" property="install_date" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, wpId, wId, `position`, longitude, latitude, install_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pole
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pole
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.bupt.slms.bean.Pole" useGeneratedKeys="true">
+    insert into pole (wpId, wId, `position`, 
+      longitude, latitude, install_date
+      )
+    values (#{wpId,jdbcType=INTEGER}, #{wId,jdbcType=INTEGER}, #{position,jdbcType=VARCHAR}, 
+      #{longitude,jdbcType=DOUBLE}, #{latitude,jdbcType=DOUBLE}, #{install_date,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.bupt.slms.bean.Pole" useGeneratedKeys="true">
+    insert into pole
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="wpId != null">
+        wpId,
+      </if>
+      <if test="wId != null">
+        wId,
+      </if>
+      <if test="position != null">
+        `position`,
+      </if>
+      <if test="longitude != null">
+        longitude,
+      </if>
+      <if test="latitude != null">
+        latitude,
+      </if>
+      <if test="install_date != null">
+        install_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="wpId != null">
+        #{wpId,jdbcType=INTEGER},
+      </if>
+      <if test="wId != null">
+        #{wId,jdbcType=INTEGER},
+      </if>
+      <if test="position != null">
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="install_date != null">
+        #{install_date,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.bupt.slms.bean.Pole">
+    update pole
+    <set>
+      <if test="wpId != null">
+        wpId = #{wpId,jdbcType=INTEGER},
+      </if>
+      <if test="wId != null">
+        wId = #{wId,jdbcType=INTEGER},
+      </if>
+      <if test="position != null">
+        `position` = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        longitude = #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="latitude != null">
+        latitude = #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="install_date != null">
+        install_date = #{install_date,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.bupt.slms.bean.Pole">
+    update pole
+    set wpId = #{wpId,jdbcType=INTEGER},
+      wId = #{wId,jdbcType=INTEGER},
+      `position` = #{position,jdbcType=VARCHAR},
+      longitude = #{longitude,jdbcType=DOUBLE},
+      latitude = #{latitude,jdbcType=DOUBLE},
+      install_date = #{install_date,jdbcType=DATE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

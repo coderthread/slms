@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.bupt.slms.mapper.MenuRoleMapper">
+  <resultMap id="BaseResultMap" type="edu.bupt.slms.bean.MenuRole">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="mId" jdbcType="INTEGER" property="mId" />
+    <result column="rId" jdbcType="INTEGER" property="rId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, mId, rId
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from menu_role
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from menu_role
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.bupt.slms.bean.MenuRole" useGeneratedKeys="true">
+    insert into menu_role (mId, rId)
+    values (#{mId,jdbcType=INTEGER}, #{rId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.bupt.slms.bean.MenuRole" useGeneratedKeys="true">
+    insert into menu_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mId != null">
+        mId,
+      </if>
+      <if test="rId != null">
+        rId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mId != null">
+        #{mId,jdbcType=INTEGER},
+      </if>
+      <if test="rId != null">
+        #{rId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.bupt.slms.bean.MenuRole">
+    update menu_role
+    <set>
+      <if test="mId != null">
+        mId = #{mId,jdbcType=INTEGER},
+      </if>
+      <if test="rId != null">
+        rId = #{rId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.bupt.slms.bean.MenuRole">
+    update menu_role
+    set mId = #{mId,jdbcType=INTEGER},
+      rId = #{rId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
