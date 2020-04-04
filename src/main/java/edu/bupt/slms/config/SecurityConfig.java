@@ -44,7 +44,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //    忽略/login的菜单匹配，因为/login是不登录就能访问的
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/login");
+        web.ignoring()
+                .antMatchers("/login")
+                .antMatchers("/swagger-ui.html")
+                .antMatchers("/webjars/**")
+                .antMatchers("/v2/api-docs")
+                .antMatchers("/swagger-resources")
+                .antMatchers("/swagger-resources/configuration/ui")
+                .antMatchers("/configuration/ui")
+                .antMatchers("/configuration/security");
     }
 
     @Bean
