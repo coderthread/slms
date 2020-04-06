@@ -1,6 +1,7 @@
 package edu.bupt.slms;
 
-import edu.bupt.slms.service.activiti.repair.Alarm;
+import edu.bupt.slms.bean.Account;
+import edu.bupt.slms.service.AccountService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
@@ -31,9 +32,13 @@ class SlmsApplicationTests {
     @Test
     void contextLoads() {
         Map<String,Object> map = new HashMap<>();
-        map.put("alarm",new Alarm());
         map.put("auto",true);
-        ProcessInstance holiday = runtimeService.startProcessInstanceByKey("repair1","1001",map);
+        ProcessInstance holiday = runtimeService.startProcessInstanceByKey("repair","5",map);
+    }
+
+    @Test
+    public void test1() {
+        runtimeService.startProcessInstanceByKey("myProcess");
     }
 
     @Test
@@ -46,5 +51,16 @@ class SlmsApplicationTests {
             System.out.println(task.getId());
             taskService.complete(task.getId());
         }
+    }
+
+    @Autowired
+    AccountService accountService;
+    @Test
+    public void testAccount() {
+        List<Account> accounts = accountService.getAccountsByRoleNameZh("维修人员");
+        for (Account account : accounts) {
+            System.out.println(account);
+        }
+
     }
 }

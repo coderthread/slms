@@ -20,7 +20,13 @@
     from error
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <select id="getErrorByaId" resultMap="BaseResultMap">
+    SELECT * FROM error e WHERE e.`aId`=#{aId};
+  </select>
+    <select id="getAllErrors" resultMap="BaseResultMap">
+      select * from error;
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from error
     where id = #{id,jdbcType=INTEGER}
   </delete>

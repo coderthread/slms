@@ -2,6 +2,8 @@ package edu.bupt.slms.mapper;
 
 import edu.bupt.slms.bean.Error;
 
+import java.util.List;
+
 public interface ErrorMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,8 @@ public interface ErrorMapper {
     int updateByPrimaryKeySelective(Error record);
 
     int updateByPrimaryKey(Error record);
+
+    List<Error> getErrorByaId(Integer aId);
+
+    List<Error> getAllErrors();
 }

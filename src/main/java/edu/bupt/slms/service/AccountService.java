@@ -8,6 +8,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author: 韩 宁
  * @create: 2020/03/19 17:27:47
@@ -24,5 +26,9 @@ public class AccountService implements UserDetailsService {
         }
         account.setRoles(accountMapper.getRolesById(account.getId()));
         return account;
+    }
+
+    public List<Account> getAccountsByRoleNameZh(String nameZh) {
+        return accountMapper.getAccountsByRoleNameZh(nameZh);
     }
 }

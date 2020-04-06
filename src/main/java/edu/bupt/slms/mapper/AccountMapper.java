@@ -21,4 +21,6 @@ public interface AccountMapper {
     Account loadUserByUsername(String s);
 
     List<Role> getRolesById(Integer id);
+
+    List<Account> getAccountsByRoleNameZh(String nameZh);
 }

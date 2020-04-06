@@ -215,4 +215,27 @@ public class Account implements UserDetails {
     public void setCompany(String company) {
         this.company = company;
     }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", email='" + email + '\'' +
+                ", enabled=" + enabled +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", portrait='" + portrait + '\'' +
+                ", remark='" + remark + '\'' +
+                ", gender='" + gender + '\'' +
+                ", age=" + age +
+                ", birthday=" + birthday +
+                ", idCard='" + idCard + '\'' +
+                ", positionId=" + positionId +
+                ", company='" + company + '\'' +
+                ", roles=" + roles +
+                '}';
+    }
 }

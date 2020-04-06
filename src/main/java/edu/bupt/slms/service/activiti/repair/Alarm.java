@@ -16,8 +16,11 @@ public class Alarm implements Serializable, JavaDelegate {
     RuntimeService runtimeService;
     @Override
     public void execute(DelegateExecution delegateExecution) {
+        // 故障报警是不是要用消息中间件或邮箱等服务
         String key = delegateExecution.getProcessInstanceBusinessKey();
         System.out.println(key);
-        System.out.println("流程实例为>>>>>>>>>>>>"+this.toString());
+        boolean auto = (boolean) delegateExecution.getVariable("auto");
+        System.out.println(auto);
+        System.out.println("流程实例为>>>>>>>>>>>>"+delegateExecution.toString());
     }
 }

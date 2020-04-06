@@ -2,17 +2,17 @@
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test" id="m1585462765130" name="">
   <process id="repair" name="repairProcess" isExecutable="true" isClosed="false" processType="None">
     <startEvent id="_2" name="StartEvent"></startEvent>
-    <serviceTask id="_4" name="故障报警" activiti:delegateExpression="${alarm}"></serviceTask>
-    <serviceTask id="_6" name="自动分配任务" activiti:delegateExpression="${autoDis}"></serviceTask>
-    <userTask id="_7" name="接受任务"></userTask>
-    <userTask id="_8" name="管理员分配"></userTask>
-    <serviceTask id="_9" name="生成工单" activiti:delegateExpression="${createBill}"></serviceTask>
+    <serviceTask id="_4" name="故障报警" activiti:expression="${repairService.alarm(execution)}"></serviceTask>
+    <serviceTask id="_6" name="自动分配任务" activiti:expression="${repairService.autoDis(execution)}"></serviceTask>
+    <userTask id="_7" name="接受任务" activiti:assignee="${maintainer}"></userTask>
+    <userTask id="_8" name="管理员分配" activiti:assignee="admin"></userTask>
+    <serviceTask id="_9" name="生成工单" activiti:expression="${repairService.createBill(execution)}"></serviceTask>
     <exclusiveGateway id="_10"></exclusiveGateway>
     <sequenceFlow id="_11" sourceRef="_2" targetRef="_4"></sequenceFlow>
     <sequenceFlow id="_15" sourceRef="_6" targetRef="_7"></sequenceFlow>
     <sequenceFlow id="_16" sourceRef="_7" targetRef="_10"></sequenceFlow>
     <sequenceFlow id="_19" sourceRef="_8" targetRef="_7"></sequenceFlow>
-    <userTask id="_12" name="维修"></userTask>
+    <userTask id="_12" name="维修" activiti:assignee="${maintainer}"></userTask>
     <endEvent id="_26" name="EndEvent"></endEvent>
     <sequenceFlow id="_27" sourceRef="_12" targetRef="_26"></sequenceFlow>
     <sequenceFlow id="flow3" sourceRef="_9" targetRef="_12"></sequenceFlow>
