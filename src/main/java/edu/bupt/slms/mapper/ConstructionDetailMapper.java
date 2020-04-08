@@ -2,6 +2,8 @@ package edu.bupt.slms.mapper;
 
 import edu.bupt.slms.bean.ConstructionDetail;
 
+import java.util.List;
+
 public interface ConstructionDetailMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -10,6 +12,8 @@ public interface ConstructionDetailMapper {
     int insertSelective(ConstructionDetail record);
 
     ConstructionDetail selectByPrimaryKey(Integer id);
+
+    List<ConstructionDetail> selectByPid(Integer pid);
 
     int updateByPrimaryKeySelective(ConstructionDetail record);
 

@@ -1,9 +1,9 @@
 package edu.bupt.slms.service.activiti;
 
-import edu.bupt.slms.bean.Account;
+import edu.bupt.slms.bean.*;
 import edu.bupt.slms.bean.Error;
-import edu.bupt.slms.bean.RepairBill;
 import edu.bupt.slms.mapper.ErrorMapper;
+import edu.bupt.slms.mapper.ReceiptMapper;
 import edu.bupt.slms.mapper.RepairBillMapper;
 import edu.bupt.slms.service.AccountService;
 import edu.bupt.slms.service.ErrorService;
@@ -31,6 +31,8 @@ public class repairService {
     ErrorMapper errorMapper;
     @Autowired
     RepairBillMapper repairBillMapper;
+    @Autowired
+    ReceiptMapper receiptMapper;
 
     public void alarm(DelegateExecution execution) {
         // 故障报警是不是要用消息中间件或邮箱等服务
@@ -80,4 +82,30 @@ public class repairService {
 
         System.out.println("生成工单！");
     }
+
+
+    /**
+     * ⑤维修人员维修完成并填写回单，也就是在Receipt表中新增一项,并且修改error中的状态status#{ActivityDemoServiceImpl.refuseToRepair(execution,error)}
+     * @param receipt
+     * @return
+     */
+    public RespBean RepairComplete(Receipt receipt ){
+
+        try {
+            //更新error状态
+            Integer eId = receipt.getErrorId();
+            Error error = errorMapper.selectByPrimaryKey(eId);
+            error.setStatus("finished");
+            errorMapper.updateByPrimaryKey(error);
+             //插入回单项
+            receiptMapper.insertSelective(receipt);
+            return RespBean.ok("创建回单成功");
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return RespBean.error("创建回单失败");
+
+    }
+
+
 }

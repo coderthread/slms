@@ -26,4 +26,7 @@ public class ErrorController {
     public List<Error> getErrorByPage() {
         return errorService.getErrors();
     }
+
+
+
 }

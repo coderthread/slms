@@ -1,8 +1,10 @@
 package edu.bupt.slms.service;
 
 import edu.bupt.slms.bean.Error;
+import edu.bupt.slms.bean.Receipt;
 import edu.bupt.slms.bean.RespPageBean;
 import edu.bupt.slms.mapper.ErrorMapper;
+import edu.bupt.slms.mapper.ReceiptMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,7 @@ import java.util.List;
 public class ErrorService {
     @Autowired
     ErrorMapper errorMapper;
+
 
     public int addError(Error error) {
         return errorMapper.insertSelective(error);
@@ -34,4 +37,6 @@ public class ErrorService {
     public List<Error> getErrors() {
         return errorMapper.getAllErrors();
     }
+
+
 }

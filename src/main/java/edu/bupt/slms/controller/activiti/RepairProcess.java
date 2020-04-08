@@ -4,9 +4,7 @@ import edu.bupt.slms.bean.Error;
 import edu.bupt.slms.bean.Receipt;
 import edu.bupt.slms.bean.RespBean;
 import edu.bupt.slms.service.ErrorService;
-import edu.bupt.slms.service.activiti.repair.CreateReceipt;
-import org.activiti.engine.ProcessEngine;
-import org.activiti.engine.ProcessEngines;
+import edu.bupt.slms.service.activiti.repairService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.runtime.ProcessInstance;
@@ -15,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,7 +26,7 @@ public class RepairProcess {
     @Autowired
     private TaskService taskService;
     @Autowired
-    private CreateReceipt createReceipt;
+    private repairService rs;
     @Autowired
     ErrorService errorService;
 
@@ -122,18 +119,23 @@ public class RepairProcess {
 
 
     //完成任务
-    ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
 
-    @RequestMapping(value = "/finish", method = RequestMethod.POST)
-    public boolean complete(@RequestParam(value = "aId", required = true) String aId, Receipt receipt) {
 
-        List<Task> list = processEngine.getTaskService()//
+    @PostMapping("/finish/")
+    public RespBean complete(@RequestBody Receipt receipt) {
+
+        String aId = receipt.getAccountId().toString();
+        String eId = receipt.getErrorId().toString();
+
+        Task task = taskService//
                 .createTaskQuery()//
                 .taskAssignee(aId)
-                .processDefinitionKey("repair")//指定个人任务查询
-                .list();
-        taskService.complete(list.get(0).getId());
+                .processInstanceBusinessKey(eId)
+                .taskName("维修")//指定个人任务查询
+                .singleResult();
+
+        taskService.complete(task.getId());
         System.out.println("新增回单");
-        return createReceipt.RepairComplete(receipt);
+        return rs.RepairComplete(receipt);
     }
 }
