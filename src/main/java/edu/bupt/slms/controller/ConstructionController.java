@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 import java.util.List;
 
-
+//施工
 @RestController
 @RequestMapping("/construction")
 public class ConstructionController {
@@ -31,7 +31,7 @@ public class ConstructionController {
     }
 
     //添加进度内容
-    @PostMapping("/addPlan")
+    @PostMapping("/addPlan/")
     public RespBean addPlan(@RequestBody ConstructionDetail constructionDetail){
         return constructionService.addPlan(constructionDetail);
     }
@@ -43,9 +43,9 @@ public class ConstructionController {
     }
 
     //完成该项目,存入回单，修改与该项目绑定的路灯的状态
-    @PostMapping("/finish")
-    public RespBean AddReceipt(ConstructionReceipt constructionReceipt){
-        return RespBean.ok("已提交工单");
+    @PostMapping("/finish/")
+    public RespBean AddReceipt(@RequestBody ConstructionReceipt constructionReceipt){
+        return constructionService.finish(constructionReceipt);
 
     }
 
