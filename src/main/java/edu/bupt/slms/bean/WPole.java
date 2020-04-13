@@ -20,13 +20,13 @@ public class WPole implements Serializable {
 
     private Double height;
 
-    private Double load_bearing;
+    private Double loadBearing;
 
-    private Date production_date;
+    private Date productionDate;
 
-    private Date purchase_date;
+    private Date purchaseDate;
 
-    private String life_time;
+    private String lifeTime;
 
     private String manufacturer;
 
@@ -82,36 +82,36 @@ public class WPole implements Serializable {
         this.height = height;
     }
 
-    public Double getLoad_bearing() {
-        return load_bearing;
+    public Double getLoadBearing() {
+        return loadBearing;
     }
 
-    public void setLoad_bearing(Double load_bearing) {
-        this.load_bearing = load_bearing;
+    public void setLoadBearing(Double loadBearing) {
+        this.loadBearing = loadBearing;
     }
 
-    public Date getProduction_date() {
-        return production_date;
+    public Date getProductionDate() {
+        return productionDate;
     }
 
-    public void setProduction_date(Date production_date) {
-        this.production_date = production_date;
+    public void setProductionDate(Date productionDate) {
+        this.productionDate = productionDate;
     }
 
-    public Date getPurchase_date() {
-        return purchase_date;
+    public Date getPurchaseDate() {
+        return purchaseDate;
     }
 
-    public void setPurchase_date(Date purchase_date) {
-        this.purchase_date = purchase_date;
+    public void setPurchaseDate(Date purchaseDate) {
+        this.purchaseDate = purchaseDate;
     }
 
-    public String getLife_time() {
-        return life_time;
+    public String getLifeTime() {
+        return lifeTime;
     }
 
-    public void setLife_time(String life_time) {
-        this.life_time = life_time;
+    public void setLifeTime(String lifeTime) {
+        this.lifeTime = lifeTime;
     }
 
     public String getManufacturer() {

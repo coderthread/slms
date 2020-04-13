@@ -1,6 +1,9 @@
 package edu.bupt.slms.mapper;
 
+import edu.bupt.slms.bean.WLight;
 import edu.bupt.slms.bean.WPole;
+
+import java.util.List;
 
 public interface WPoleMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +17,6 @@ public interface WPoleMapper {
     int updateByPrimaryKeySelective(WPole record);
 
     int updateByPrimaryKey(WPole record);
+
+    List<WPole> getALlPoles();
 }

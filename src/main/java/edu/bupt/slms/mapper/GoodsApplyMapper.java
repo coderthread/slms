@@ -2,6 +2,8 @@ package edu.bupt.slms.mapper;
 
 import edu.bupt.slms.bean.GoodsApply;
 
+import java.util.List;
+
 public interface GoodsApplyMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -11,7 +13,9 @@ public interface GoodsApplyMapper {
 
     GoodsApply selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(GoodsApply record);
-
     int updateByPrimaryKey(GoodsApply record);
+
+    List<GoodsApply> getAllGoodsApplies();
+
+    Integer updateByPrimaryKeySelective(GoodsApply record);
 }

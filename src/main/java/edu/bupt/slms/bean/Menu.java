@@ -35,10 +35,6 @@ public class Menu implements Serializable {
      */
     private String iconCls;
 
-    private Boolean keepAlive;
-
-    private Boolean requireAuth;
-
     private Integer parentId;
 
     /**
@@ -47,6 +43,26 @@ public class Menu implements Serializable {
     private Boolean enabled;
 
     private List<Role> roles;
+
+    private Meta meta;
+
+    private List<Menu> children;
+
+    public Meta getMeta() {
+        return meta;
+    }
+
+    public void setMeta(Meta meta) {
+        this.meta = meta;
+    }
+
+    public List<Menu> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Menu> children) {
+        this.children = children;
+    }
 
     public List<Role> getRoles() {
         return roles;
@@ -104,22 +120,6 @@ public class Menu implements Serializable {
 
     public void setIconCls(String iconCls) {
         this.iconCls = iconCls;
-    }
-
-    public Boolean getKeepAlive() {
-        return keepAlive;
-    }
-
-    public void setKeepAlive(Boolean keepAlive) {
-        this.keepAlive = keepAlive;
-    }
-
-    public Boolean getRequireAuth() {
-        return requireAuth;
-    }
-
-    public void setRequireAuth(Boolean requireAuth) {
-        this.requireAuth = requireAuth;
     }
 
     public Integer getParentId() {
