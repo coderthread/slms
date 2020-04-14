@@ -1,6 +1,7 @@
 package edu.bupt.slms.service;
 
 import edu.bupt.slms.bean.Account;
+import edu.bupt.slms.bean.RespAccount;
 import edu.bupt.slms.mapper.AccountMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,7 +29,7 @@ public class AccountService implements UserDetailsService {
         return account;
     }
 
-    public List<Account> getAccountsByRoleNameZh(String nameZh) {
-        return accountMapper.getAccountsByRoleNameZh(nameZh);
+    public List<RespAccount> getAccountsByRoleNameZh(String nameZh,Account account) {
+        return accountMapper.getAccountsByRoleNameZh(nameZh,account);
     }
 }

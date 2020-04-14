@@ -1,5 +1,7 @@
 package edu.bupt.slms.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -10,6 +12,7 @@ import java.util.Date;
 public class Error implements Serializable {
     private Integer id;
 
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private Date date;
 
     private String type;
@@ -24,7 +27,17 @@ public class Error implements Serializable {
 
     private Integer aId;
 
+    private RespAccount account ;
+
     private static final long serialVersionUID = 1L;
+
+    public RespAccount getAccount() {
+        return account;
+    }
+
+    public void setAccount(RespAccount account) {
+        this.account = account;
+    }
 
     public Integer getId() {
         return id;
@@ -88,5 +101,20 @@ public class Error implements Serializable {
 
     public void setaId(Integer aId) {
         this.aId = aId;
+    }
+
+    @Override
+    public String toString() {
+        return "Error{" +
+                "id=" + id +
+                ", date=" + date +
+                ", type='" + type + '\'' +
+                ", des='" + des + '\'' +
+                ", address='" + address + '\'' +
+                ", importance=" + importance +
+                ", status='" + status + '\'' +
+                ", aId=" + aId +
+                ", account=" + account +
+                '}';
     }
 }
