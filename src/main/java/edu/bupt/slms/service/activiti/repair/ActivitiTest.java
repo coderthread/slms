@@ -1,6 +1,7 @@
 package edu.bupt.slms.service.activiti.repair;
 
 import edu.bupt.slms.bean.Account;
+import edu.bupt.slms.bean.RespAccount;
 import edu.bupt.slms.service.AccountService;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,8 @@ public class ActivitiTest {
 
     public void select(DelegateExecution execution) {
         System.out.println("------------------");
-        List<Account> accounts = accountService.getAccountsByRoleNameZh("维修人员");
-        for (Account account : accounts) {
+        List<RespAccount> accounts = accountService.getAccountsByRoleNameZh("维修人员",null);
+        for (RespAccount account : accounts) {
             System.out.println(account);
         }
     }

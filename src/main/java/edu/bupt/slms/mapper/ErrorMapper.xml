@@ -11,6 +11,18 @@
     <result column="status" jdbcType="VARCHAR" property="status" />
     <result column="aId" jdbcType="INTEGER" property="aId" />
   </resultMap>
+  <resultMap id="ErrorWithAccount" type="edu.bupt.slms.bean.Error" extends="BaseResultMap">
+    <association property="account" javaType="edu.bupt.slms.bean.RespAccount">
+      <id column="accountid" jdbcType="INTEGER" property="id"/>
+      <result column="ausername" property="username"/>
+      <result column="aname" jdbcType="VARCHAR" property="name"/>
+      <result column="aphone" jdbcType="VARCHAR" property="phone"/>
+      <result column="atelephone" jdbcType="VARCHAR" property="telephone"/>
+      <result column="aage" jdbcType="INTEGER" property="age"/>
+      <result column="agender" jdbcType="VARCHAR" property="gender"/>
+      <result column="aidcard" jdbcType="VARCHAR" property="idCard"/>
+    </association>
+  </resultMap>
   <sql id="Base_Column_List">
     id, `date`, `type`, des, address, importance, `status`, aId
   </sql>
@@ -23,10 +35,84 @@
   <select id="getErrorByaId" resultMap="BaseResultMap">
     SELECT * FROM error e WHERE e.`aId`=#{aId};
   </select>
-    <select id="getAllErrors" resultMap="BaseResultMap">
-      select * from error;
+    <select id="getTotal" resultType="java.lang.Long">
+      select count(*) from error e
+      <where>
+        <if test="error.id != null and error.id != ''">
+          AND e.id = #{error.id}
+        </if>
+        <if test="error.aId != null and error.aId != ''">
+          AND e.aId = #{error.aId}
+        </if>
+        <if test="error.importance != null and error.importance != ''">
+          AND e.importance = #{error.importance}
+        </if>
+        <if test="error.type != null and error.type != ''">
+          AND e.type = #{error.type}
+        </if>
+        <if test="error.address != null and error.address != ''">
+          AND e.address = #{error.address}
+        </if>
+        <if test="error.status != null and error.status != ''">
+          AND e.status = #{error.status}
+        </if>
+        <if test="(error.status == null or error.status == '' ) and part == true">
+          AND e.`status`='ready' OR e.`status`='unDistribution'
+        </if>
+        <if test="dateScope != null and dateScope != ''">
+          AND e.date BETWEEN #{dateScope[0]} AND #{dateScope[1]}
+        </if>
+      </where>
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <select id="getErrorByPage" resultMap="ErrorWithAccount">
+    SELECT
+      e.*,
+      a.id accountid,
+      a.`username` ausername,
+      a.`name` aname,
+      a.`phone` aphone,
+      a.`telephone` atelephone,
+      a.`age` aage,
+      a.`gender` agender,
+      a.`idcard` aidcard
+    FROM
+      error e
+      LEFT JOIN account a
+        ON e.`aId` = a.`id`
+    <where>
+      <if test="error.id != null and error.id != ''">
+        AND e.id = #{error.id}
+      </if>
+      <if test="error.aId != null and error.aId != ''">
+        AND e.aId = #{error.aId}
+      </if>
+      <if test="error.importance != null and error.importance != ''">
+        AND e.importance = #{error.importance}
+      </if>
+      <if test="error.type != null and error.type != ''">
+        AND e.type = #{error.type}
+      </if>
+      <if test="error.address != null and error.address != ''">
+        AND e.address = #{error.address}
+      </if>
+      <if test="error.status != null and error.status != ''">
+        AND e.status = #{error.status}
+      </if>
+      <if test="(error.status == null or error.status == '' ) and part == true">
+        AND e.`status`='ready' OR e.`status`='unDistribution'
+      </if>
+      <if test="dateScope != null and dateScope != ''">
+        AND e.date BETWEEN #{dateScope[0]} AND #{dateScope[1]}
+      </if>
+    </where>
+    ORDER BY
+    e.`id` DESC
+    <if test="page != null and size != null">
+      LIMIT
+      #{page},#{size}
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from error
     where id = #{id,jdbcType=INTEGER}
   </delete>

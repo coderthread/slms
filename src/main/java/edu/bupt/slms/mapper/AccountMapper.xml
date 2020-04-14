@@ -18,10 +18,11 @@
         <result column="idCard" jdbcType="CHAR" property="idCard"/>
         <result column="positionId" jdbcType="INTEGER" property="positionId"/>
         <result column="company" jdbcType="VARCHAR" property="company"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
     </resultMap>
     <sql id="Base_Column_List">
     id, `name`, phone, telephone, email, enabled, username, `password`, portrait, remark, 
-    gender, age, birthday, idCard, positionId, company
+    gender, age, birthday, idCard, positionId, company, address
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
@@ -43,7 +44,7 @@
         ON a.`id` = ar.`aId`
     WHERE a.`id` = #{id};
   </select>
-    <select id="getAccountsByRoleNameZh" resultMap="BaseResultMap">
+    <select id="getAccountsByRoleNameZh" resultType="edu.bupt.slms.bean.RespAccount">
       SELECT
         a.*
       FROM
@@ -53,6 +54,15 @@
       WHERE r.`nameZh`= #{nameZh} AND
         r.`id` = ar.`rId` AND
         ar.`aId` = a.`id`
+        <if test="account.id != null">
+            AND a.id = #{account.id}
+        </if>
+        <if test="account.name != null and account.name != ''">
+            AND a.name like concat("%",#{account.name},"%")
+        </if>
+        <if test="account.address != null and account.address != ''">
+            AND a.address like concat("%",#{account.address},"%")
+        </if>
       ORDER BY a.`id` ;
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
@@ -64,12 +74,12 @@
       email, enabled, username, 
       `password`, portrait, remark, 
       gender, age, birthday, idCard,
-      positionId, company)
+      positionId, company, address)
     values (#{name,jdbcType=VARCHAR}, #{phone,jdbcType=CHAR}, #{telephone,jdbcType=VARCHAR}, 
       #{email,jdbcType=VARCHAR}, #{enabled,jdbcType=BOOLEAN}, #{username,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{portrait,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
       #{gender,jdbcType=CHAR}, #{age,jdbcType=INTEGER}, #{birthday,jdbcType=DATE}, #{idCard,jdbcType=CHAR},
-      #{positionId,jdbcType=INTEGER}, #{company,jdbcType=VARCHAR})
+      #{positionId,jdbcType=INTEGER}, #{company,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR})
   </insert>
     <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.bupt.slms.bean.Account" useGeneratedKeys="true">
         insert into account
@@ -119,6 +129,9 @@
             <if test="company != null">
                 company,
             </if>
+            <if test="address != null">
+                address,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="name != null">
@@ -165,6 +178,9 @@
             </if>
             <if test="company != null">
                 #{company,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -216,6 +232,9 @@
             <if test="company != null">
                 company = #{company,jdbcType=VARCHAR},
             </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
@@ -235,7 +254,8 @@
       birthday = #{birthday,jdbcType=DATE},
       idCard = #{idCard,jdbcType=CHAR},
       positionId = #{positionId,jdbcType=INTEGER},
-      company = #{company,jdbcType=VARCHAR}
+      company = #{company,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -53,7 +53,17 @@ public class Account implements UserDetails {
 
     private String company;
 
+    private String address;
+
     private List<Role> roles;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public List<Role> getRoles() {
         return roles;

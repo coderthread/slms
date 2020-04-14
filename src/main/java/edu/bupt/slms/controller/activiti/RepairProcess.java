@@ -4,13 +4,17 @@ import edu.bupt.slms.bean.Error;
 import edu.bupt.slms.bean.Receipt;
 import edu.bupt.slms.bean.RespBean;
 import edu.bupt.slms.service.ErrorService;
+import edu.bupt.slms.service.SystemConfigService;
 import edu.bupt.slms.service.activiti.repairService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,23 +33,24 @@ public class RepairProcess {
     private repairService rs;
     @Autowired
     ErrorService errorService;
+    @Autowired
+    SystemConfigService systemConfigService;
 
 
     /**
      * 韩宁
      * 接受错误并创建实例
-     * @param error 产生的错误信息
-     * @param auto  是否是自动分配
-     * @return
      */
     @PostMapping("/repair/")
-    public RespBean addError(@RequestBody Error error,Boolean auto) {
+    public RespBean addError(@RequestBody Error error) {
         // 1. 存错error信息
         error.setStatus("unDistribution");
         if (errorService.addError(error) != 1) {
             return RespBean.error("添加失败！");
         }
-        // 2. 启动流程实例
+        // 2. 在系统设置表中获取auto
+        Boolean auto = systemConfigService.getSystemCfg().getAutoDistribution();
+        // 3. 启动流程实例
         Map<String, Object> map = new HashMap<>();
         map.put("auto", auto);
         ProcessInstance holiday = runtimeService.startProcessInstanceByKey("repair", String.valueOf(error.getId()), map);
@@ -60,7 +65,7 @@ public class RepairProcess {
      * @return
      */
     @GetMapping("/fault/dis/manual")
-    public RespBean manualDistribution(Integer eId,Integer aId) {
+    public RespBean manualDistribution(Integer eId, Integer aId) {
         // 根据eId查到该任务
         Task task = taskService.createTaskQuery()
                 .processInstanceBusinessKey(String.valueOf(eId))

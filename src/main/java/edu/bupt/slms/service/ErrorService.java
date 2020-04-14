@@ -1,10 +1,8 @@
 package edu.bupt.slms.service;
 
 import edu.bupt.slms.bean.Error;
-import edu.bupt.slms.bean.Receipt;
 import edu.bupt.slms.bean.RespPageBean;
 import edu.bupt.slms.mapper.ErrorMapper;
-import edu.bupt.slms.mapper.ReceiptMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,9 +31,16 @@ public class ErrorService {
         return errorMapper.getErrorByaId(id);
     }
 
-
-    public List<Error> getErrors() {
-        return errorMapper.getAllErrors();
+    public RespPageBean getErrorByPage(boolean part,Integer page, Integer size, Error error, Date[] dateScope) {
+        if (page != null && size != null) {
+            page = (page - 1) * size;
+        }
+        long total = errorMapper.getTotal(part,error, dateScope);
+        List<Error> errors = errorMapper.getErrorByPage(part,page,size,error,dateScope);
+        RespPageBean respPageBean = new RespPageBean();
+        respPageBean.setData(errors);
+        respPageBean.setTotal(total);
+        return respPageBean;
     }
 
 

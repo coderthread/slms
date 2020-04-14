@@ -20,4 +20,8 @@ public interface MenuMapper {
     List<Menu> getAllMenuWithRoles();
 
     List<Menu> getMenuByAId(Integer id);
+
+    List<Menu> getMenus();
+
+    List<Integer> getMidsByRid(Integer rid);
 }
