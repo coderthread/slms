@@ -2,6 +2,7 @@ package edu.bupt.slms.service;
 
 import edu.bupt.slms.bean.Menu;
 import edu.bupt.slms.mapper.MenuMapper;
+import edu.bupt.slms.utils.AccountUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,5 +19,10 @@ public class MenuService {
 
     public List<Menu> getAllMenuWithRoles() {
         return menuMapper.getAllMenuWithRoles();
+    }
+
+    public List<Menu> getMenuByAId() {
+
+        return menuMapper.getMenuByAId(AccountUtils.getCurrentAccount().getId());
     }
 }

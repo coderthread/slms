@@ -10,9 +10,9 @@
     <result column="power" jdbcType="DOUBLE" property="power" />
     <result column="voltage" jdbcType="DOUBLE" property="voltage" />
     <result column="current" jdbcType="DOUBLE" property="current" />
-    <result column="production_date" jdbcType="DATE" property="production_date" />
-    <result column="purchase_date" jdbcType="DATE" property="purchase_date" />
-    <result column="life_time" jdbcType="VARCHAR" property="life_time" />
+    <result column="production_date" jdbcType="DATE" property="productionDate" />
+    <result column="purchase_date" jdbcType="DATE" property="purchaseDate" />
+    <result column="life_time" jdbcType="VARCHAR" property="lifeTime" />
     <result column="manufacturer" jdbcType="VARCHAR" property="manufacturer" />
     <result column="price" jdbcType="DOUBLE" property="price" />
   </resultMap>
@@ -20,6 +20,12 @@
     id, `type`, `name`, `number`, capacity, `power`, voltage, `current`, production_date, 
     purchase_date, life_time, manufacturer, price
   </sql>
+
+  <select id="getAllLights" resultMap="BaseResultMap">
+    select * from w_light
+  </select>
+
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -33,13 +39,13 @@
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.bupt.slms.bean.WLight" useGeneratedKeys="true">
     insert into w_light (`type`, `name`, `number`, 
       capacity, `power`, voltage, 
-      `current`, production_date, purchase_date, 
+      `current`, productionDate, purchase_date,
       life_time, manufacturer, price
       )
     values (#{type,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER}, 
       #{capacity,jdbcType=INTEGER}, #{power,jdbcType=DOUBLE}, #{voltage,jdbcType=DOUBLE}, 
-      #{current,jdbcType=DOUBLE}, #{production_date,jdbcType=DATE}, #{purchase_date,jdbcType=DATE}, 
-      #{life_time,jdbcType=VARCHAR}, #{manufacturer,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}
+      #{current,jdbcType=DOUBLE}, #{productionDate,jdbcType=DATE}, #{purchaseDate,jdbcType=DATE},
+      #{lifeTime,jdbcType=VARCHAR}, #{manufacturer,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}
       )
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.bupt.slms.bean.WLight" useGeneratedKeys="true">
@@ -66,13 +72,13 @@
       <if test="current != null">
         `current`,
       </if>
-      <if test="production_date != null">
+      <if test="productionDate != null">
         production_date,
       </if>
-      <if test="purchase_date != null">
+      <if test="purchaseDate != null">
         purchase_date,
       </if>
-      <if test="life_time != null">
+      <if test="lifeTime != null">
         life_time,
       </if>
       <if test="manufacturer != null">
@@ -104,14 +110,14 @@
       <if test="current != null">
         #{current,jdbcType=DOUBLE},
       </if>
-      <if test="production_date != null">
-        #{production_date,jdbcType=DATE},
+      <if test="productionDate != null">
+        #{productionDate,jdbcType=DATE},
       </if>
-      <if test="purchase_date != null">
-        #{purchase_date,jdbcType=DATE},
+      <if test="purchaseDate != null">
+        #{purchaseDate,jdbcType=DATE},
       </if>
-      <if test="life_time != null">
-        #{life_time,jdbcType=VARCHAR},
+      <if test="lifeTime != null">
+        #{lifeTime,jdbcType=VARCHAR},
       </if>
       <if test="manufacturer != null">
         #{manufacturer,jdbcType=VARCHAR},
@@ -145,14 +151,14 @@
       <if test="current != null">
         `current` = #{current,jdbcType=DOUBLE},
       </if>
-      <if test="production_date != null">
-        production_date = #{production_date,jdbcType=DATE},
+      <if test="productionDate != null">
+        production_date = #{productionDate,jdbcType=DATE},
       </if>
-      <if test="purchase_date != null">
-        purchase_date = #{purchase_date,jdbcType=DATE},
+      <if test="purchaseDate != null">
+        purchase_date = #{purchaseDate,jdbcType=DATE},
       </if>
-      <if test="life_time != null">
-        life_time = #{life_time,jdbcType=VARCHAR},
+      <if test="lifeTime != null">
+        life_time = #{lifeTime,jdbcType=VARCHAR},
       </if>
       <if test="manufacturer != null">
         manufacturer = #{manufacturer,jdbcType=VARCHAR},
@@ -172,9 +178,9 @@
       `power` = #{power,jdbcType=DOUBLE},
       voltage = #{voltage,jdbcType=DOUBLE},
       `current` = #{current,jdbcType=DOUBLE},
-      production_date = #{production_date,jdbcType=DATE},
-      purchase_date = #{purchase_date,jdbcType=DATE},
-      life_time = #{life_time,jdbcType=VARCHAR},
+      production_date = #{productionDate,jdbcType=DATE},
+      purchase_date = #{purchaseDate,jdbcType=DATE},
+      life_time = #{lifeTime,jdbcType=VARCHAR},
       manufacturer = #{manufacturer,jdbcType=VARCHAR},
       price = #{price,jdbcType=DOUBLE}
     where id = #{id,jdbcType=INTEGER}

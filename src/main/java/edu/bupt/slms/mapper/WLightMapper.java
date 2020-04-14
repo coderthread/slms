@@ -2,6 +2,8 @@ package edu.bupt.slms.mapper;
 
 import edu.bupt.slms.bean.WLight;
 
+import java.util.List;
+
 public interface WLightMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface WLightMapper {
     int updateByPrimaryKeySelective(WLight record);
 
     int updateByPrimaryKey(WLight record);
+
+    List<WLight> getAllLights();
 }

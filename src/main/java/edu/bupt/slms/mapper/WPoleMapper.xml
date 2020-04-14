@@ -8,10 +8,10 @@
     <result column="number" jdbcType="INTEGER" property="number" />
     <result column="capacity" jdbcType="INTEGER" property="capacity" />
     <result column="height" jdbcType="DOUBLE" property="height" />
-    <result column="load_bearing" jdbcType="DOUBLE" property="load_bearing" />
-    <result column="production_date" jdbcType="DATE" property="production_date" />
-    <result column="purchase_date" jdbcType="DATE" property="purchase_date" />
-    <result column="life_time" jdbcType="VARCHAR" property="life_time" />
+    <result column="load_bearing" jdbcType="DOUBLE" property="loadBearing" />
+    <result column="production_date" jdbcType="DATE" property="productionDate" />
+    <result column="purchase_date" jdbcType="DATE" property="purchaseDate" />
+    <result column="life_time" jdbcType="VARCHAR" property="lifeTime" />
     <result column="manufacturer" jdbcType="VARCHAR" property="manufacturer" />
     <result column="price" jdbcType="DOUBLE" property="price" />
   </resultMap>
@@ -19,6 +19,12 @@
     id, `type`, `name`, `number`, capacity, height, load_bearing, production_date, purchase_date, 
     life_time, manufacturer, price
   </sql>
+  
+  <select id="getALlPoles" resultMap="BaseResultMap">
+    select * from w_pole;
+  </select>
+  
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -35,8 +41,8 @@
       production_date, purchase_date, life_time, 
       manufacturer, price)
     values (#{type,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER}, 
-      #{capacity,jdbcType=INTEGER}, #{height,jdbcType=DOUBLE}, #{load_bearing,jdbcType=DOUBLE}, 
-      #{production_date,jdbcType=DATE}, #{purchase_date,jdbcType=DATE}, #{life_time,jdbcType=VARCHAR}, 
+      #{capacity,jdbcType=INTEGER}, #{height,jdbcType=DOUBLE}, #{loadBearing,jdbcType=DOUBLE},
+      #{productionDate,jdbcType=DATE}, #{purchaseDate,jdbcType=DATE}, #{lifeTime,jdbcType=VARCHAR},
       #{manufacturer,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.bupt.slms.bean.WPole" useGeneratedKeys="true">
@@ -57,16 +63,16 @@
       <if test="height != null">
         height,
       </if>
-      <if test="load_bearing != null">
+      <if test="loadBearing != null">
         load_bearing,
       </if>
-      <if test="production_date != null">
+      <if test="productionDate != null">
         production_date,
       </if>
-      <if test="purchase_date != null">
+      <if test="purchaseDate != null">
         purchase_date,
       </if>
-      <if test="life_time != null">
+      <if test="lifeTime != null">
         life_time,
       </if>
       <if test="manufacturer != null">
@@ -92,17 +98,17 @@
       <if test="height != null">
         #{height,jdbcType=DOUBLE},
       </if>
-      <if test="load_bearing != null">
-        #{load_bearing,jdbcType=DOUBLE},
+      <if test="loadBearing != null">
+        #{loadBearing,jdbcType=DOUBLE},
       </if>
-      <if test="production_date != null">
-        #{production_date,jdbcType=DATE},
+      <if test="productionDate != null">
+        #{productionDate,jdbcType=DATE},
       </if>
-      <if test="purchase_date != null">
-        #{purchase_date,jdbcType=DATE},
+      <if test="purchaseDate != null">
+        #{purchaseDate,jdbcType=DATE},
       </if>
-      <if test="life_time != null">
-        #{life_time,jdbcType=VARCHAR},
+      <if test="lifeTime != null">
+        #{lifeTime,jdbcType=VARCHAR},
       </if>
       <if test="manufacturer != null">
         #{manufacturer,jdbcType=VARCHAR},
@@ -130,17 +136,17 @@
       <if test="height != null">
         height = #{height,jdbcType=DOUBLE},
       </if>
-      <if test="load_bearing != null">
-        load_bearing = #{load_bearing,jdbcType=DOUBLE},
+      <if test="loadBearing != null">
+        load_bearing = #{loadBearing,jdbcType=DOUBLE},
       </if>
-      <if test="production_date != null">
-        production_date = #{production_date,jdbcType=DATE},
+      <if test="productionDate != null">
+        production_date = #{productionDate,jdbcType=DATE},
       </if>
-      <if test="purchase_date != null">
-        purchase_date = #{purchase_date,jdbcType=DATE},
+      <if test="purchaseDate != null">
+        purchase_date = #{purchaseDate,jdbcType=DATE},
       </if>
-      <if test="life_time != null">
-        life_time = #{life_time,jdbcType=VARCHAR},
+      <if test="lifeTime != null">
+        life_time = #{lifeTime,jdbcType=VARCHAR},
       </if>
       <if test="manufacturer != null">
         manufacturer = #{manufacturer,jdbcType=VARCHAR},
@@ -158,10 +164,10 @@
       `number` = #{number,jdbcType=INTEGER},
       capacity = #{capacity,jdbcType=INTEGER},
       height = #{height,jdbcType=DOUBLE},
-      load_bearing = #{load_bearing,jdbcType=DOUBLE},
-      production_date = #{production_date,jdbcType=DATE},
-      purchase_date = #{purchase_date,jdbcType=DATE},
-      life_time = #{life_time,jdbcType=VARCHAR},
+      load_bearing = #{loadBearing,jdbcType=DOUBLE},
+      production_date = #{productionDate,jdbcType=DATE},
+      purchase_date = #{purchaseDate,jdbcType=DATE},
+      life_time = #{lifeTime,jdbcType=VARCHAR},
       manufacturer = #{manufacturer,jdbcType=VARCHAR},
       price = #{price,jdbcType=DOUBLE}
     where id = #{id,jdbcType=INTEGER}

@@ -13,15 +13,47 @@ public class GoodsApply implements Serializable {
      */
     private Integer id;
 
-    private Integer apply_id;
+    private Integer applyId;
 
-    private Integer error_id;
+    private Integer errorId;
 
     private Date time;
 
     private String detail;
 
+    private String applyStatus;
+
+    private String applyName;
+
+    private String applyType;
+
+    private String applyTelephone;
+
     private static final long serialVersionUID = 1L;
+
+    public String getApplyName() {
+        return applyName;
+    }
+
+    public void setApplyName(String applyName) {
+        this.applyName = applyName;
+    }
+
+    public String getApplyType() {
+        return applyType;
+    }
+
+    public void setApplyType(String applyType) {
+        this.applyType = applyType;
+    }
+
+    public String getApplyTelephone() {
+        return applyTelephone;
+    }
+
+    public void setApplyTelephone(String applyTelephone) {
+        this.applyTelephone = applyTelephone;
+    }
 
     public Integer getId() {
         return id;
@@ -29,22 +61,6 @@ public class GoodsApply implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getApply_id() {
-        return apply_id;
-    }
-
-    public void setApply_id(Integer apply_id) {
-        this.apply_id = apply_id;
-    }
-
-    public Integer getError_id() {
-        return error_id;
-    }
-
-    public void setError_id(Integer error_id) {
-        this.error_id = error_id;
     }
 
     public Date getTime() {
@@ -61,5 +77,29 @@ public class GoodsApply implements Serializable {
 
     public void setDetail(String detail) {
         this.detail = detail;
+    }
+
+    public Integer getApplyId() {
+        return applyId;
+    }
+
+    public void setApplyId(Integer applyId) {
+        this.applyId = applyId;
+    }
+
+    public Integer getErrorId() {
+        return errorId;
+    }
+
+    public void setErrorId(Integer errorId) {
+        this.errorId = errorId;
+    }
+
+    public String getApplyStatus() {
+        return applyStatus;
+    }
+
+    public void setApplyStatus(String applyStatus) {
+        this.applyStatus = applyStatus;
     }
 }
