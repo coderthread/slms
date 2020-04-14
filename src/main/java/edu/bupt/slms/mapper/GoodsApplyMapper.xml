@@ -61,9 +61,9 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.bupt.slms.bean.GoodsApply" useGeneratedKeys="true">
-    insert into goods_apply (apply_id, error_id, `time`,
+    insert into goods_apply (apply_id, error_id,pro_id, `time`,
       detail)
-    values (#{apply_id,jdbcType=INTEGER}, #{error_id,jdbcType=INTEGER}, #{pro_id,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP},
+    values (#{applyId,jdbcType=INTEGER}, #{errorId,jdbcType=INTEGER}, #{proId,jdbcType=INTEGER},#{pro_id,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP},
       #{detail,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.bupt.slms.bean.GoodsApply" useGeneratedKeys="true">
