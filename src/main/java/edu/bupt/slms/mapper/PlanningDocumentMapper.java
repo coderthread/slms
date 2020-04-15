@@ -2,6 +2,8 @@ package edu.bupt.slms.mapper;
 
 import edu.bupt.slms.bean.PlanningDocument;
 
+import java.util.List;
+
 public interface PlanningDocumentMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface PlanningDocumentMapper {
     int updateByPrimaryKeySelective(PlanningDocument record);
 
     int updateByPrimaryKey(PlanningDocument record);
+
+    List<PlanningDocument> selectAllPlanningDocuments();
 }

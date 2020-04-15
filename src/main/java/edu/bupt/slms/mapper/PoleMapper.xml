@@ -108,4 +108,7 @@
       install_date = #{install_date,jdbcType=DATE}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectAllPoles" resultMap="BaseResultMap">
+    select * from pole
+  </select>
 </mapper>

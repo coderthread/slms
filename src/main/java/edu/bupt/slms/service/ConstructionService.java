@@ -23,7 +23,7 @@ public class ConstructionService {
     @Autowired
     PlanningDocumentMapper planningDocumentMapper;
     @Autowired
-    LightToInstallMapper lightToInstallMapper;
+    LightsToInstallMapper LightsToInstallMapper;
     @Autowired
     LightMapper lightMapper;
 
@@ -61,11 +61,11 @@ public class ConstructionService {
         constructionBillMapper.updateByPrimaryKey(constructionBill);
 
         System.out.println("////////////////////////////");
-        List<LightToInstall> lights = lightToInstallMapper.selectByPdid(pdid);
+        List<LightsToInstall> lights = LightsToInstallMapper.selectByPdid(pdid);
         for (int i = 0; i < lights.size(); i++) {
             System.out.println(lights.get(i));
             Integer current = lights.get(i).getId();//获得灯的id
-            lightToInstallMapper.deleteByPrimaryKey(current);//删除该项，因为已经安装完成。
+            LightsToInstallMapper.deleteByPrimaryKey(current);//删除该项，因为已经安装完成。
             Light light = lightMapper.selectByPrimaryKey(current);
             light.setStatus("关闭");//对于刚完工的灯，设置状态为关闭。
             lightMapper.updateByPrimaryKey(light);

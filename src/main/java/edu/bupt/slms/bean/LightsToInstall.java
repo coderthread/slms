@@ -1,6 +1,6 @@
 package edu.bupt.slms.bean;
 
-public class LightToInstall {
+public class LightsToInstall {
     private Integer id;
 
     private Integer pdid;

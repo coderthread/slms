@@ -2,6 +2,8 @@ package edu.bupt.slms.mapper;
 
 import edu.bupt.slms.bean.Light;
 
+import java.util.List;
+
 public interface LightMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface LightMapper {
     int updateByPrimaryKeySelective(Light record);
 
     int updateByPrimaryKey(Light record);
+
+    List<Light> selectAllLights();
 }

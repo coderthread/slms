@@ -185,4 +185,7 @@
       price = #{price,jdbcType=DOUBLE}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectAllWLights" resultMap="BaseResultMap">
+    select * from w_light
+  </select>
 </mapper>

@@ -18,4 +18,6 @@ public interface WLightMapper {
     int updateByPrimaryKey(WLight record);
 
     List<WLight> getAllLights();
+
+    List<WLight> selectAllWLights();
 }

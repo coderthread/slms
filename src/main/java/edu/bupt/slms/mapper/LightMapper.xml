@@ -130,4 +130,7 @@
       `current` = #{current,jdbcType=DOUBLE}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectAllLights" resultMap="BaseResultMap">
+    select * from light
+  </select>
 </mapper>
