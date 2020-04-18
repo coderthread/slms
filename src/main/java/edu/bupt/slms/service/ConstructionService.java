@@ -18,8 +18,8 @@ public class ConstructionService {
     ConstructionBillMapper constructionBillMapper;
     @Autowired
     ConstructionDetailMapper constructionDetailMapper;
-    @Autowired
-    ConstructionReceiptMapper constructionReceiptMapper;
+//    @Autowired
+//    ConstructionReceiptMapper constructionReceiptMapper;
     @Autowired
     PlanningDocumentMapper planningDocumentMapper;
     @Autowired
@@ -69,27 +69,27 @@ public class ConstructionService {
     }
 
     //完成该项目,存入回单，修改与该项目绑定的路灯的状态,改变工单状态。
-    public RespBean finish(ConstructionReceipt constructionReceipt){
-        constructionReceiptMapper.insertSelective(constructionReceipt);
-        Integer pdid = constructionReceipt.getBillid();
-
-        ConstructionBill constructionBill = constructionBillMapper.selectByPrimaryKey(pdid);
-        constructionBill.setStatus("已完成");
-        constructionBillMapper.updateByPrimaryKey(constructionBill);
-
-        List<LightsToInstall> lights = lightToInstallMapper.selectByPdid(pdid);
-        for (int i = 0; i < lights.size(); i++) {
-            System.out.println(lights.get(i));
-            Integer current = lights.get(i).getId();//获得灯的id
-            lightToInstallMapper.deleteByPrimaryKey(current);//删除该项，因为已经安装完成。
-            Light light = lightMapper.selectByPrimaryKey(current);
-            light.setStatus("关闭");//对于刚完工的灯，设置状态为关闭。
-            lightMapper.updateByPrimaryKey(light);
-        }
-
-        return RespBean.ok("成功提交回单");
-
-    }
+//    public RespBean finish(ConstructionReceipt constructionReceipt){
+//        constructionReceiptMapper.insertSelective(constructionReceipt);
+//        Integer pdid = constructionReceipt.getBillid();
+//
+//        ConstructionBill constructionBill = constructionBillMapper.selectByPrimaryKey(pdid);
+//        constructionBill.setStatus("已完成");
+//        constructionBillMapper.updateByPrimaryKey(constructionBill);
+//
+//        List<LightsToInstall> lights = lightToInstallMapper.selectByPdid(pdid);
+//        for (int i = 0; i < lights.size(); i++) {
+//            System.out.println(lights.get(i));
+//            Integer current = lights.get(i).getId();//获得灯的id
+//            lightToInstallMapper.deleteByPrimaryKey(current);//删除该项，因为已经安装完成。
+//            Light light = lightMapper.selectByPrimaryKey(current);
+//            light.setStatus("关闭");//对于刚完工的灯，设置状态为关闭。
+//            lightMapper.updateByPrimaryKey(light);
+//        }
+//
+//        return RespBean.ok("成功提交回单");
+//
+//    }
 
 
 }
