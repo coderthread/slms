@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.bupt.slms.mapper.ConstructionReceiptMapper">
+  <resultMap id="BaseResultMap" type="edu.bupt.slms.bean.ConstructionReceipt">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="startTime" jdbcType="DATE" property="starttime" />
+    <result column="endTime" jdbcType="DATE" property="endtime" />
+    <result column="else1" jdbcType="VARCHAR" property="else1" />
+    <result column="billId" jdbcType="INTEGER" property="billid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
+    <result column="goods" jdbcType="VARCHAR" property="goods" />
+    <result column="account_id" jdbcType="INTEGER" property="accountId" />
+    <result column="account_name" jdbcType="VARCHAR" property="accountName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, startTime, endTime, else1, billId, name, goods_id, goods, account_id, account_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from construction_receipt
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from construction_receipt
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="edu.bupt.slms.bean.ConstructionReceipt">
+    insert into construction_receipt (id, startTime, endTime, 
+      else1, billId, name, 
+      goods_id, goods, account_id, 
+      account_name)
+    values (#{id,jdbcType=INTEGER}, #{starttime,jdbcType=DATE}, #{endtime,jdbcType=DATE}, 
+      #{else1,jdbcType=VARCHAR}, #{billid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{goodsId,jdbcType=INTEGER}, #{goods,jdbcType=VARCHAR}, #{accountId,jdbcType=INTEGER}, 
+      #{accountName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="edu.bupt.slms.bean.ConstructionReceipt">
+    insert into construction_receipt
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="starttime != null">
+        startTime,
+      </if>
+      <if test="endtime != null">
+        endTime,
+      </if>
+      <if test="else1 != null">
+        else1,
+      </if>
+      <if test="billid != null">
+        billId,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+      <if test="goods != null">
+        goods,
+      </if>
+      <if test="accountId != null">
+        account_id,
+      </if>
+      <if test="accountName != null">
+        account_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="starttime != null">
+        #{starttime,jdbcType=DATE},
+      </if>
+      <if test="endtime != null">
+        #{endtime,jdbcType=DATE},
+      </if>
+      <if test="else1 != null">
+        #{else1,jdbcType=VARCHAR},
+      </if>
+      <if test="billid != null">
+        #{billid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="goods != null">
+        #{goods,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null">
+        #{accountId,jdbcType=INTEGER},
+      </if>
+      <if test="accountName != null">
+        #{accountName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.bupt.slms.bean.ConstructionReceipt">
+    update construction_receipt
+    <set>
+      <if test="starttime != null">
+        startTime = #{starttime,jdbcType=DATE},
+      </if>
+      <if test="endtime != null">
+        endTime = #{endtime,jdbcType=DATE},
+      </if>
+      <if test="else1 != null">
+        else1 = #{else1,jdbcType=VARCHAR},
+      </if>
+      <if test="billid != null">
+        billId = #{billid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null">
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="goods != null">
+        goods = #{goods,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null">
+        account_id = #{accountId,jdbcType=INTEGER},
+      </if>
+      <if test="accountName != null">
+        account_name = #{accountName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.bupt.slms.bean.ConstructionReceipt">
+    update construction_receipt
+    set startTime = #{starttime,jdbcType=DATE},
+      endTime = #{endtime,jdbcType=DATE},
+      else1 = #{else1,jdbcType=VARCHAR},
+      billId = #{billid,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      goods_id = #{goodsId,jdbcType=INTEGER},
+      goods = #{goods,jdbcType=VARCHAR},
+      account_id = #{accountId,jdbcType=INTEGER},
+      account_name = #{accountName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

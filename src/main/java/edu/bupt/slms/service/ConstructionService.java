@@ -53,7 +53,9 @@ public class ConstructionService {
     }
     //添加物资申请
     public RespBean addGoodsList(GoodsApply goodsApply) {
+        goodsApply.setApplyStatus("待审核");
         goodsApplyMapper.insertSelective(goodsApply);
+
         return RespBean.ok("成功申请物资");
 
     }
