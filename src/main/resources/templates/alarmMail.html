@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SendAlarm</title>
+</head>
+<body>
+<h3 style="color: red">编号为<span th:text="${poleId}"></span>  的灯杆出现故障，具体信息如下：</h3>
+<table border="1px">
+    <tr>
+        <td>灯杆编号</td>
+        <td th:text="${poleId}"></td>
+    </tr>
+    <tr>
+        <td>灯杆位置</td>
+        <td th:text="${polePosition}"></td>
+    </tr>
+    <tr>
+        <td>发生时间</td>
+        <td th:text="${#dates.format(date,'yyyy-MM-dd HH:mm:ss')}"></td>
+    </tr>
+    <tr>
+        <td>类型</td>
+        <td th:text="${type}"></td>
+    </tr>
+    <tr>
+        <td>描述</td>
+        <td th:text="${des}"></td>
+    </tr>
+    <tr>
+        <td>重要程度</td>
+        <td th:text="${importance}"></td>
+    </tr>
+</table>
+</body>
+</html>

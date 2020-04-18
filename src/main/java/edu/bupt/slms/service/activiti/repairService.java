@@ -9,6 +9,7 @@ import edu.bupt.slms.service.AccountService;
 import edu.bupt.slms.service.ErrorService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.delegate.DelegateExecution;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,14 +34,16 @@ public class repairService {
     RepairBillMapper repairBillMapper;
     @Autowired
     ReceiptMapper receiptMapper;
+    @Autowired
+    RabbitTemplate rabbitTemplate;
 
     public void alarm(DelegateExecution execution) {
         // 故障报警是不是要用消息中间件或邮箱等服务
         String key = execution.getProcessInstanceBusinessKey();
         System.out.println(key);
-        boolean auto = (boolean) execution.getVariable("auto");
-        System.out.println(auto);
-        System.out.println("流程实例为>>>>>>>>>>>>"+execution.toString());
+        // 查出故障信息放到消息队列，给谁发邮件先写死，待定
+        Error error = errorService.getErrorWithPoleByEId(key);
+        rabbitTemplate.convertAndSend("slms.mail.errorAlarm",error);
     }
 
     public void autoDis(DelegateExecution delegateExecution) {
