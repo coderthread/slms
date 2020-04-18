@@ -39,7 +39,7 @@
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.bupt.slms.bean.WLight" useGeneratedKeys="true">
     insert into w_light (`type`, `name`, `number`, 
       capacity, `power`, voltage, 
-      `current`, productionDate, purchase_date,
+      `current`, production_date, purchase_date,
       life_time, manufacturer, price
       )
     values (#{type,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER}, 

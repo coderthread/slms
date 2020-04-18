@@ -156,4 +156,7 @@
       account_name = #{accountName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectAllBills" resultMap="BaseResultMap">
+    select * from construction_bill
+  </select>
 </mapper>

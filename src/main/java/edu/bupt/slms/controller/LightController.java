@@ -2,15 +2,9 @@ package edu.bupt.slms.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import edu.bupt.slms.bean.Light;
-import edu.bupt.slms.bean.LightsToInstall;
-import edu.bupt.slms.bean.PlanningDocument;
-import edu.bupt.slms.bean.WLight;
+import edu.bupt.slms.bean.*;
 import edu.bupt.slms.entities.LightNode;
-import edu.bupt.slms.mapper.LightMapper;
-import edu.bupt.slms.mapper.LightsToInstallMapper;
-import edu.bupt.slms.mapper.PlanningDocumentMapper;
-import edu.bupt.slms.mapper.WLightMapper;
+import edu.bupt.slms.mapper.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +30,17 @@ public class LightController {
 
     @Autowired
     LightsToInstallMapper lightsToInstallMapper;
+
+    @Autowired
+    ConstructionBillMapper constructionBillMapper;
+
+    @Autowired
+    AccountMapper accountMapper;
+
+    @GetMapping("/originLights")
+    public List<Light> getAllOriginLights(){
+        return lightMapper.selectAllLights();
+    }
 
     @GetMapping("/lights")
     public List<LightNode> getAllLights() throws ParseException {
@@ -91,9 +96,9 @@ public class LightController {
 //
 //    }
 
-    @PostMapping("/light") // 增加
+    @PostMapping("/light") // 增加，同时增加construction bill
     public Map<String, Object> addLights(@RequestParam(value = "params",required = false) String params,
-                                         @RequestParam(value = "aid",required = false) int aid,
+                                         @RequestParam(value = "c_bill",required = false) String c_bill,
                                          @RequestParam(value = "file",required = false) MultipartFile file){
         int i = 0;
         int t = 0;
@@ -104,11 +109,19 @@ public class LightController {
         PlanningDocument planningDocument = new PlanningDocument();
         LightsToInstall lightsToInstall = new LightsToInstall();
         System.out.println(params);
+        System.out.println(c_bill);
         List<Light> resultList = JSONArray.parseArray(params, Light.class);
-        planningDocument.setAid(aid);
+        ConstructionBill bill = JSONObject.parseObject(c_bill, ConstructionBill.class);
+        Account account = accountMapper.selectByPrimaryKey(bill.getAccountid());
+        bill.setAccountName(account.getName()); // 此处使用施工队名称而不是username
+        bill.setPhone(account.getPhone());
+        constructionBillMapper.insert(bill);
+
+        planningDocument.setAid(bill.getAccountid());
         planningDocument.setId(0);
         planningDocument.setDetails(file.getOriginalFilename().toLowerCase());
         planningDocumentMapper.insert(planningDocument);
+        System.out.println("pdid:" + planningDocument.getId());
 
         for(i = 0; i < resultList.size(); i++) {
             temp = resultList.get(i);
@@ -143,11 +156,30 @@ public class LightController {
     }
 
     @PutMapping("/light") //修改
-    public int updateLight(@RequestBody String params){
+    public Map<String, Object> updateLight(@RequestBody String params){
 
         System.out.println(params);
-        Light light = JSONObject.parseObject(params, Light.class);
-        return lightMapper.updateByPrimaryKey(light);
+        int i = 0;
+        int t = 0;
+        int success = 0;
+        Light temp;
+        Map<String, Object> resultRes = new HashMap<>();
+
+        List<Light> resultList = JSONArray.parseArray(params, Light.class);
+        for(i = 0; i < resultList.size(); i++){
+            temp = resultList.get(i);
+            t = lightMapper.updateByPrimaryKey(temp);
+            if(t == 1){
+                success ++;
+            }
+        }
+        if(success == resultList.size()){
+            resultRes.put("success", 1);
+        }
+        else{
+            resultRes.put("success", 0);
+        }
+        return resultRes;
     }
 
 //    @PostMapping("/addLightMeg") // 规划路灯时增加路灯，增加路灯节点，增加灯杆，填写规划书

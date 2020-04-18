@@ -9,9 +9,9 @@ import java.io.Serializable;
 public class Well implements Serializable {
     private Integer id;
 
-    private Double end_lng;
+    private Double lng;
 
-    private Double end_lat;
+    private Double lat;
 
     private Integer pp_id;
 
@@ -25,20 +25,20 @@ public class Well implements Serializable {
         this.id = id;
     }
 
-    public Double getEnd_lng() {
-        return end_lng;
+    public Double getLng() {
+        return lng;
     }
 
-    public void setEnd_lng(Double end_lng) {
-        this.end_lng = end_lng;
+    public void setLng(Double lng) {
+        this.lng = lng;
     }
 
-    public Double getEnd_lat() {
-        return end_lat;
+    public Double getLat() {
+        return lat;
     }
 
-    public void setEnd_lat(Double end_lat) {
-        this.end_lat = end_lat;
+    public void setLat(Double lat) {
+        this.lat = lat;
     }
 
     public Integer getPp_id() {
