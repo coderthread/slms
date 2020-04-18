@@ -13,6 +13,17 @@
   <sql id="Base_Column_List">
     id, apply_id, error_id, time, detail, apply_status, pro_id
   </sql>
+
+  <resultMap id="AllInfo" type="edu.bupt.slms.bean.GoodsApply" extends="BaseResultMap">
+    <result column="rname" property="applyType"></result>
+    <result column="name" property="applyName"></result>
+    <result column="tel" property="applyTelephone"></result>
+  </resultMap>
+
+  <select id="getAllGoodsApplies" resultMap="AllInfo">
+    SELECT distinct ga.*,r.nameZh rname,acc.`name` name,acc.telephone tel FROM goods_apply ga,account acc,role r,account_role ar where ga.apply_id=acc.id and ga.apply_id=ar.rId and r.id=ar.rId
+  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

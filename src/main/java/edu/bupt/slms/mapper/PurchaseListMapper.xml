@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.bupt.slms.mapper.PurchaseListMapper">
+  <resultMap id="BaseResultMap" type="edu.bupt.slms.bean.PurchaseList">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="goods" jdbcType="VARCHAR" property="goods" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
+    <result column="manufacture" jdbcType="VARCHAR" property="manufacture" />
+    <result column="purchase_date" jdbcType="DATE" property="purchaseDate" />
+    <result column="production_date" jdbcType="DATE" property="productionDate" />
+    <result column="life_time" jdbcType="DOUBLE" property="lifeTime" />
+    <result column="param" jdbcType="VARCHAR" property="param" />
+    <result column="isFinish" jdbcType="INTEGER" property="isFinish" />
+  </resultMap>
+
+<!--  <select id="getAllPurchase" resultMap="BaseResultMap">-->
+<!--    select * from purchase_list-->
+<!--  </select>-->
+
+<!--  <insert id="insertPurchaseList">-->
+<!--    insert into w_light (goods,`type`, `name`, `number`,price,manufacturer,-->
+<!--      ,purchase_date, production_date, life_time,-->
+<!--      param,is_finish-->
+<!--      )-->
+<!--    values (#{goods,jdbcType=VARCHAR},#{type,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER},-->
+<!--       #{price,jdbcType=DOUBLE}, #{purchaseDate,jdbcType=DATE}, #{productionDate,jdbcType=DATE},-->
+<!--      #{lifeTime,jdbcType=DOUBLE}, #{param,jdbcType=VARCHAR},#{isFinish,jdbcType=Integer}-->
+<!--      )-->
+<!--  </insert>-->
+
+</mapper>

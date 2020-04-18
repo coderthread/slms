@@ -18,4 +18,6 @@ public interface GoodsApplyMapper {
     int updateByPrimaryKeySelective(GoodsApply record);
 
     int updateByPrimaryKey(GoodsApply record);
+
+    List<GoodsApply> getAllGoodsApplies();
 }

@@ -17,6 +17,36 @@ public class GoodsApply {
 
     private Integer proId;
 
+    private String applyName;
+
+    private String applyType;
+
+    private String applyTelephone;
+
+    public String getApplyName() {
+        return applyName;
+    }
+
+    public void setApplyName(String applyName) {
+        this.applyName = applyName;
+    }
+
+    public String getApplyType() {
+        return applyType;
+    }
+
+    public void setApplyType(String applyType) {
+        this.applyType = applyType;
+    }
+
+    public String getApplyTelephone() {
+        return applyTelephone;
+    }
+
+    public void setApplyTelephone(String applyTelephone) {
+        this.applyTelephone = applyTelephone;
+    }
+
     public Integer getId() {
         return id;
     }
