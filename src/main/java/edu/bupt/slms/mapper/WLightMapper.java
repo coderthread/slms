@@ -20,4 +20,8 @@ public interface WLightMapper {
     List<WLight> getAllLights();
 
     List<WLight> selectAllWLights();
+
+    WLight getLightByType(String type);
+
+    Integer updateNumberByType(WLight wLight);
 }

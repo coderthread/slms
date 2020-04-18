@@ -27,9 +27,29 @@ public class Error implements Serializable {
 
     private Integer aId;
 
+    private Integer pId;
+
+    private Pole pole;
+
     private RespAccount account ;
 
     private static final long serialVersionUID = 1L;
+
+    public Integer getpId() {
+        return pId;
+    }
+
+    public void setpId(Integer pId) {
+        this.pId = pId;
+    }
+
+    public Pole getPole() {
+        return pole;
+    }
+
+    public void setPole(Pole pole) {
+        this.pole = pole;
+    }
 
     public RespAccount getAccount() {
         return account;
