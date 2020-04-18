@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.bupt.slms.mapper.GoodsApplyMapper">
+  <resultMap id="BaseResultMap" type="edu.bupt.slms.bean.GoodsApply">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="apply_id" jdbcType="INTEGER" property="applyId" />
+    <result column="error_id" jdbcType="INTEGER" property="errorId" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
+    <result column="detail" jdbcType="VARCHAR" property="detail" />
+    <result column="apply_status" jdbcType="VARCHAR" property="applyStatus" />
+    <result column="pro_id" jdbcType="INTEGER" property="proId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, apply_id, error_id, time, detail, apply_status, pro_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from goods_apply
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByProid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from goods_apply
+    where pro_id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from goods_apply
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="edu.bupt.slms.bean.GoodsApply">
+    insert into goods_apply (id, apply_id, error_id, 
+      time, detail, apply_status, 
+      pro_id)
+    values (#{id,jdbcType=INTEGER}, #{applyId,jdbcType=INTEGER}, #{errorId,jdbcType=INTEGER}, 
+      #{time,jdbcType=TIMESTAMP}, #{detail,jdbcType=VARCHAR}, #{applyStatus,jdbcType=VARCHAR}, 
+      #{proId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="edu.bupt.slms.bean.GoodsApply">
+    insert into goods_apply
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="applyId != null">
+        apply_id,
+      </if>
+      <if test="errorId != null">
+        error_id,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+      <if test="detail != null">
+        detail,
+      </if>
+      <if test="applyStatus != null">
+        apply_status,
+      </if>
+      <if test="proId != null">
+        pro_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="applyId != null">
+        #{applyId,jdbcType=INTEGER},
+      </if>
+      <if test="errorId != null">
+        #{errorId,jdbcType=INTEGER},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="detail != null">
+        #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="applyStatus != null">
+        #{applyStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="proId != null">
+        #{proId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.bupt.slms.bean.GoodsApply">
+    update goods_apply
+    <set>
+      <if test="applyId != null">
+        apply_id = #{applyId,jdbcType=INTEGER},
+      </if>
+      <if test="errorId != null">
+        error_id = #{errorId,jdbcType=INTEGER},
+      </if>
+      <if test="time != null">
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="detail != null">
+        detail = #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="applyStatus != null">
+        apply_status = #{applyStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="proId != null">
+        pro_id = #{proId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.bupt.slms.bean.GoodsApply">
+    update goods_apply
+    set apply_id = #{applyId,jdbcType=INTEGER},
+      error_id = #{errorId,jdbcType=INTEGER},
+      time = #{time,jdbcType=TIMESTAMP},
+      detail = #{detail,jdbcType=VARCHAR},
+      apply_status = #{applyStatus,jdbcType=VARCHAR},
+      pro_id = #{proId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
