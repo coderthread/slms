@@ -46,6 +46,7 @@ public class ConstructionController {
     //申请物资
     @PostMapping("/addGoodsList/")
     public RespBean addGoodsList(@RequestBody GoodsApply goodsApply){
+        System.out.println(goodsApply);
         return constructionService.addGoodsList(goodsApply);
     }
 
