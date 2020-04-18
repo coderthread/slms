@@ -3,53 +3,16 @@
 <mapper namespace="edu.bupt.slms.mapper.GoodsApplyMapper">
   <resultMap id="BaseResultMap" type="edu.bupt.slms.bean.GoodsApply">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="apply_Id" jdbcType="INTEGER" property="applyId" />
+    <result column="apply_id" jdbcType="INTEGER" property="applyId" />
     <result column="error_id" jdbcType="INTEGER" property="errorId" />
-    <result column="pro_id" jdbcType="INTEGER" property="proId" />
     <result column="time" jdbcType="TIMESTAMP" property="time" />
     <result column="detail" jdbcType="VARCHAR" property="detail" />
     <result column="apply_status" jdbcType="VARCHAR" property="applyStatus" />
+    <result column="pro_id" jdbcType="INTEGER" property="proId" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, apply_id, error_id, `time`, detail, pro_id
+    id, apply_id, error_id, time, detail, apply_status, pro_id
   </sql>
-
-  <resultMap id="AllInfo" type="edu.bupt.slms.bean.GoodsApply" extends="BaseResultMap">
-    <result column="rname" property="applyType"></result>
-    <result column="name" property="applyName"></result>
-    <result column="tel" property="applyTelephone"></result>
-  </resultMap>
-
-  <select id="getAllGoodsApplies" resultMap="AllInfo">
-    SELECT distinct ga.*,r.nameZh rname,acc.`name` name,acc.telephone tel FROM goods_apply ga,account acc,role r,account_role ar where ga.apply_id=acc.id and ga.apply_id=ar.rId and r.id=ar.rId
-  </select>
-
-  <update id="updateByPrimaryKeySelective" parameterType="edu.bupt.slms.bean.GoodsApply">
-    update goods_apply
-    <set>
-      <if test="applyId != null">
-        apply_id = #{applyId,jdbcType=INTEGER},
-      </if>
-      <if test="errorId != null">
-        error_id = #{errorId,jdbcType=INTEGER},
-      </if>
-      <if test="proId != null">
-        pro_id = #{proId,jdbcType=INTEGER},
-      </if>
-      <if test="time != null">
-        `time` = #{time,jdbcType=TIMESTAMP},
-      </if>
-      <if test="detail != null">
-        detail = #{detail,jdbcType=VARCHAR},
-      </if>
-      <if test="applyStatus != null">
-        apply_status = #{applyStatus,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-
-
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -57,7 +20,7 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
 
-  <select id="selectByPro_id" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByProid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from goods_apply
@@ -67,40 +30,48 @@
     delete from goods_apply
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.bupt.slms.bean.GoodsApply" useGeneratedKeys="true">
-    insert into goods_apply (apply_id, error_id,pro_id, `time`,
-      detail)
-    values (#{applyId,jdbcType=INTEGER}, #{errorId,jdbcType=INTEGER}, #{proId,jdbcType=INTEGER},#{pro_id,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP},
-      #{detail,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="edu.bupt.slms.bean.GoodsApply">
+    insert into goods_apply (id, apply_id, error_id, 
+      time, detail, apply_status, 
+      pro_id)
+    values (#{id,jdbcType=INTEGER}, #{applyId,jdbcType=INTEGER}, #{errorId,jdbcType=INTEGER}, 
+      #{time,jdbcType=TIMESTAMP}, #{detail,jdbcType=VARCHAR}, #{applyStatus,jdbcType=VARCHAR}, 
+      #{proId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.bupt.slms.bean.GoodsApply" useGeneratedKeys="true">
+  <insert id="insertSelective" parameterType="edu.bupt.slms.bean.GoodsApply">
     insert into goods_apply
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
       <if test="applyId != null">
         apply_id,
       </if>
       <if test="errorId != null">
         error_id,
       </if>
-      <if test="proId != null">
-        pro_id,
-      </if>
       <if test="time != null">
-        `time`,
+        time,
       </if>
       <if test="detail != null">
         detail,
       </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="applyId != null">
-        #{apply_id,jdbcType=INTEGER},
-      </if>
-      <if test="errorId != null">
-        #{error_id,jdbcType=INTEGER},
+      <if test="applyStatus != null">
+        apply_status,
       </if>
       <if test="proId != null">
-        #{proId,jdbcType=INTEGER},
+        pro_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="applyId != null">
+        #{applyId,jdbcType=INTEGER},
+      </if>
+      <if test="errorId != null">
+        #{errorId,jdbcType=INTEGER},
       </if>
       <if test="time != null">
         #{time,jdbcType=TIMESTAMP},
@@ -108,16 +79,46 @@
       <if test="detail != null">
         #{detail,jdbcType=VARCHAR},
       </if>
+      <if test="applyStatus != null">
+        #{applyStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="proId != null">
+        #{proId,jdbcType=INTEGER},
+      </if>
     </trim>
   </insert>
-
+  <update id="updateByPrimaryKeySelective" parameterType="edu.bupt.slms.bean.GoodsApply">
+    update goods_apply
+    <set>
+      <if test="applyId != null">
+        apply_id = #{applyId,jdbcType=INTEGER},
+      </if>
+      <if test="errorId != null">
+        error_id = #{errorId,jdbcType=INTEGER},
+      </if>
+      <if test="time != null">
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="detail != null">
+        detail = #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="applyStatus != null">
+        apply_status = #{applyStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="proId != null">
+        pro_id = #{proId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
   <update id="updateByPrimaryKey" parameterType="edu.bupt.slms.bean.GoodsApply">
     update goods_apply
     set apply_id = #{applyId,jdbcType=INTEGER},
       error_id = #{errorId,jdbcType=INTEGER},
-      pro_id = #{proId,jdbcType=INTEGER},
-      `time` = #{time,jdbcType=TIMESTAMP},
-      detail = #{detail,jdbcType=VARCHAR}
+      time = #{time,jdbcType=TIMESTAMP},
+      detail = #{detail,jdbcType=VARCHAR},
+      apply_status = #{applyStatus,jdbcType=VARCHAR},
+      pro_id = #{proId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -54,14 +54,14 @@ public class ConstructionService {
     //添加物资申请
     public RespBean addGoodsList(GoodsApply goodsApply) {
         goodsApply.setApplyStatus("待审核");
-        goodsApplyMapper.insertSelective(goodsApply);
+        goodsApplyMapper.insert(goodsApply);
 
         return RespBean.ok("成功申请物资");
 
     }
     //根据项目id获取物资申请表
     public List<GoodsApply> getGoods(Integer id){
-        return goodsApplyMapper.selectByPro_id(id);
+        return goodsApplyMapper.selectByProid(id);
     }
 
     ////根据项目id下载规划书，也就是返回规划书在服务器里的路径。

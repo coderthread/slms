@@ -13,11 +13,9 @@ public interface GoodsApplyMapper {
 
     GoodsApply selectByPrimaryKey(Integer id);
 
-    List<GoodsApply> selectByPro_id(Integer id);
+    List<GoodsApply> selectByProid(Integer id);
+
+    int updateByPrimaryKeySelective(GoodsApply record);
 
     int updateByPrimaryKey(GoodsApply record);
-
-    List<GoodsApply> getAllGoodsApplies();
-
-    Integer updateByPrimaryKeySelective(GoodsApply record);
 }
