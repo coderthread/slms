@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.bupt.slms.mapper.ConstructionBillMapper">
+  <resultMap id="BaseResultMap" type="edu.bupt.slms.bean.ConstructionBill">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="timeLimit" jdbcType="INTEGER" property="timelimit" />
+    <result column="time" jdbcType="DATE" property="time" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="accountId" jdbcType="INTEGER" property="accountid" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="detail" jdbcType="VARCHAR" property="detail" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="account_name" jdbcType="VARCHAR" property="accountName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, timeLimit, time, location, accountId, status, detail, phone, account_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from construction_bill
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from construction_bill
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="edu.bupt.slms.bean.ConstructionBill">
+    insert into construction_bill (id, name, timeLimit, 
+      time, location, accountId, 
+      status, detail, phone, 
+      account_name)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{timelimit,jdbcType=INTEGER}, 
+      #{time,jdbcType=DATE}, #{location,jdbcType=VARCHAR}, #{accountid,jdbcType=INTEGER}, 
+      #{status,jdbcType=VARCHAR}, #{detail,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{accountName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="edu.bupt.slms.bean.ConstructionBill">
+    insert into construction_bill
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="timelimit != null">
+        timeLimit,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+      <if test="location != null">
+        location,
+      </if>
+      <if test="accountid != null">
+        accountId,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="detail != null">
+        detail,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="accountName != null">
+        account_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="timelimit != null">
+        #{timelimit,jdbcType=INTEGER},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=DATE},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="accountid != null">
+        #{accountid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null">
+        #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName != null">
+        #{accountName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.bupt.slms.bean.ConstructionBill">
+    update construction_bill
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="timelimit != null">
+        timeLimit = #{timelimit,jdbcType=INTEGER},
+      </if>
+      <if test="time != null">
+        time = #{time,jdbcType=DATE},
+      </if>
+      <if test="location != null">
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="accountid != null">
+        accountId = #{accountid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null">
+        detail = #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName != null">
+        account_name = #{accountName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.bupt.slms.bean.ConstructionBill">
+    update construction_bill
+    set name = #{name,jdbcType=VARCHAR},
+      timeLimit = #{timelimit,jdbcType=INTEGER},
+      time = #{time,jdbcType=DATE},
+      location = #{location,jdbcType=VARCHAR},
+      accountId = #{accountid,jdbcType=INTEGER},
+      status = #{status,jdbcType=VARCHAR},
+      detail = #{detail,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      account_name = #{accountName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
