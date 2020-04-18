@@ -23,9 +23,11 @@ public class ConstructionService {
     @Autowired
     PlanningDocumentMapper planningDocumentMapper;
     @Autowired
-    LightToInstallMapper lightToInstallMapper;
+    LightsToInstallMapper lightToInstallMapper;
     @Autowired
     LightMapper lightMapper;
+    @Autowired
+    GoodsApplyMapper goodsApplyMapper;
 
     //根据用户id返回工程列表
     public List<ConstructionBill> getProjectsByaId(Integer id) {
@@ -49,6 +51,16 @@ public class ConstructionService {
         return RespBean.ok("成功添加进度");
 
     }
+    //添加物资申请
+    public RespBean addGoodsList(GoodsApply goodsApply) {
+        goodsApplyMapper.insertSelective(goodsApply);
+        return RespBean.ok("成功申请物资");
+
+    }
+    //根据项目id获取物资申请表
+    public List<GoodsApply> getGoods(Integer id){
+        return goodsApplyMapper.selectByPro_id(id);
+    }
 
     ////根据项目id下载规划书，也就是返回规划书在服务器里的路径。
     public String download(Integer id){
@@ -59,13 +71,13 @@ public class ConstructionService {
     //完成该项目,存入回单，修改与该项目绑定的路灯的状态,改变工单状态。
     public RespBean finish(ConstructionReceipt constructionReceipt){
         constructionReceiptMapper.insertSelective(constructionReceipt);
-        Integer pdid = constructionReceipt.getProjectid();
+        Integer pdid = constructionReceipt.getBillid();
 
         ConstructionBill constructionBill = constructionBillMapper.selectByPrimaryKey(pdid);
         constructionBill.setStatus("已完成");
         constructionBillMapper.updateByPrimaryKey(constructionBill);
 
-        List<LightToInstall> lights = lightToInstallMapper.selectByPdid(pdid);
+        List<LightsToInstall> lights = lightToInstallMapper.selectByPdid(pdid);
         for (int i = 0; i < lights.size(); i++) {
             System.out.println(lights.get(i));
             Integer current = lights.get(i).getId();//获得灯的id

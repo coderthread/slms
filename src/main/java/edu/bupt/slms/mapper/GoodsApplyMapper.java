@@ -13,6 +13,8 @@ public interface GoodsApplyMapper {
 
     GoodsApply selectByPrimaryKey(Integer id);
 
+    List<GoodsApply> selectByPro_id(Integer id);
+
     int updateByPrimaryKey(GoodsApply record);
 
     List<GoodsApply> getAllGoodsApplies();
