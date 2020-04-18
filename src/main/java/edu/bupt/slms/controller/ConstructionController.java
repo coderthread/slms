@@ -63,9 +63,9 @@ public class ConstructionController {
     }
 
     //完成该项目,存入回单，修改与该项目绑定的路灯的状态
-//    @PostMapping("/finish/")
-//    public RespBean AddReceipt(@RequestBody ConstructionReceipt constructionReceipt){
-//        return constructionService.finish(constructionReceipt);
-//
-//    }
+    @PostMapping("/finish/")
+    public RespBean AddReceipt(@RequestBody ConstructionReceipt constructionReceipt){
+        return constructionService.finish(constructionReceipt);
+
+    }
 }
