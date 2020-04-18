@@ -9,10 +9,10 @@
     <result column="end_lat" jdbcType="DOUBLE" property="end_lat" />
     <result column="length" jdbcType="DOUBLE" property="length" />
     <result column="total_holes_num" jdbcType="INTEGER" property="total_holes_num" />
-    <result column="avaliable_holes_num" jdbcType="INTEGER" property="avaliable_holes_num" />
+    <result column="available_holes_num" jdbcType="INTEGER" property="available_holes_num" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, start_lng, start_lat, end_lng, end_lat, `length`, total_holes_num, avaliable_holes_num
+    id, start_lng, start_lat, end_lng, end_lat, `length`, total_holes_num, available_holes_num
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -27,10 +27,10 @@
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.bupt.slms.bean.Pipe" useGeneratedKeys="true">
     insert into pipe (start_lng, start_lat, end_lng, 
       end_lat, `length`, total_holes_num, 
-      avaliable_holes_num)
+      available_holes_num)
     values (#{start_lng,jdbcType=DOUBLE}, #{start_lat,jdbcType=DOUBLE}, #{end_lng,jdbcType=DOUBLE}, 
       #{end_lat,jdbcType=DOUBLE}, #{length,jdbcType=DOUBLE}, #{total_holes_num,jdbcType=INTEGER}, 
-      #{avaliable_holes_num,jdbcType=INTEGER})
+      #{available_holes_num,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.bupt.slms.bean.Pipe" useGeneratedKeys="true">
     insert into pipe
@@ -53,8 +53,8 @@
       <if test="total_holes_num != null">
         total_holes_num,
       </if>
-      <if test="avaliable_holes_num != null">
-        avaliable_holes_num,
+      <if test="available_holes_num != null">
+        available_holes_num,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -76,8 +76,8 @@
       <if test="total_holes_num != null">
         #{total_holes_num,jdbcType=INTEGER},
       </if>
-      <if test="avaliable_holes_num != null">
-        #{avaliable_holes_num,jdbcType=INTEGER},
+      <if test="available_holes_num != null">
+        #{available_holes_num,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -102,8 +102,8 @@
       <if test="total_holes_num != null">
         total_holes_num = #{total_holes_num,jdbcType=INTEGER},
       </if>
-      <if test="avaliable_holes_num != null">
-        avaliable_holes_num = #{avaliable_holes_num,jdbcType=INTEGER},
+      <if test="available_holes_num != null">
+        available_holes_num = #{available_holes_num,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -116,7 +116,10 @@
       end_lat = #{end_lat,jdbcType=DOUBLE},
       `length` = #{length,jdbcType=DOUBLE},
       total_holes_num = #{total_holes_num,jdbcType=INTEGER},
-      avaliable_holes_num = #{avaliable_holes_num,jdbcType=INTEGER}
+      available_holes_num = #{available_holes_num,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectAllPipes" resultMap="BaseResultMap">
+    select * from pipe
+  </select>
 </mapper>

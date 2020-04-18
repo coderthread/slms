@@ -2,6 +2,8 @@ package edu.bupt.slms.mapper;
 
 import edu.bupt.slms.bean.Pole;
 
+import java.util.List;
+
 public interface PoleMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface PoleMapper {
     int updateByPrimaryKeySelective(Pole record);
 
     int updateByPrimaryKey(Pole record);
+
+    List<Pole> selectAllPoles();
 }

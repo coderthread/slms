@@ -2,6 +2,8 @@ package edu.bupt.slms.mapper;
 
 import edu.bupt.slms.bean.Pipe;
 
+import java.util.List;
+
 public interface PipeMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface PipeMapper {
     int updateByPrimaryKeySelective(Pipe record);
 
     int updateByPrimaryKey(Pipe record);
+
+    List<Pipe> selectAllPipes();
 }

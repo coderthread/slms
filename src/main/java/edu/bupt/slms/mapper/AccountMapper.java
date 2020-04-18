@@ -1,7 +1,9 @@
 package edu.bupt.slms.mapper;
 
 import edu.bupt.slms.bean.Account;
+import edu.bupt.slms.bean.RespAccount;
 import edu.bupt.slms.bean.Role;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -22,5 +24,5 @@ public interface AccountMapper {
 
     List<Role> getRolesById(Integer id);
 
-    List<Account> getAccountsByRoleNameZh(String nameZh);
+    List<RespAccount> getAccountsByRoleNameZh(@Param("nameZh") String nameZh,@Param("account") Account account);
 }

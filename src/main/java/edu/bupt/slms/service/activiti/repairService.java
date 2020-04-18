@@ -1,7 +1,7 @@
 package edu.bupt.slms.service.activiti;
 
-import edu.bupt.slms.bean.*;
 import edu.bupt.slms.bean.Error;
+import edu.bupt.slms.bean.*;
 import edu.bupt.slms.mapper.ErrorMapper;
 import edu.bupt.slms.mapper.ReceiptMapper;
 import edu.bupt.slms.mapper.RepairBillMapper;
@@ -45,7 +45,7 @@ public class repairService {
 
     public void autoDis(DelegateExecution delegateExecution) {
         // 1. 先简单处理获取所有的维修人员，分配给第一个
-        List<Account> maintainers = accountService.getAccountsByRoleNameZh("维修人员");
+        List<RespAccount> maintainers = accountService.getAccountsByRoleNameZh("维修人员",null);
         String errorId = delegateExecution.getProcessInstanceBusinessKey();
         Integer maintainer = maintainers.get(0).getId();
         runtimeService.setVariable(delegateExecution.getId(), "maintainer", maintainer);

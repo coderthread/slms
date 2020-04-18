@@ -172,4 +172,7 @@
       price = #{price,jdbcType=DOUBLE}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectAllWPoles" resultMap="BaseResultMap">
+    select * from w_pole
+  </select>
 </mapper>

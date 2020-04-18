@@ -1,7 +1,9 @@
 package edu.bupt.slms.mapper;
 
 import edu.bupt.slms.bean.Error;
+import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 public interface ErrorMapper {
@@ -19,5 +21,8 @@ public interface ErrorMapper {
 
     List<Error> getErrorByaId(Integer aId);
 
-    List<Error> getAllErrors();
+    long getTotal(@Param("part") Boolean part,@Param("error") Error error, @Param("dateScope") Date[] dateScope);
+
+    List<Error> getErrorByPage(@Param("part") Boolean part,@Param("page") Integer page, @Param("size") Integer size, @Param("error") Error error,
+                               @Param("dateScope") Date[] dateScope);
 }

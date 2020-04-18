@@ -19,7 +19,10 @@
     delete from menu_role
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.bupt.slms.bean.MenuRole" useGeneratedKeys="true">
+  <delete id="deleteByRid">
+    delete from menu_role where rid=#{rid};
+  </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.bupt.slms.bean.MenuRole" useGeneratedKeys="true">
     insert into menu_role (mId, rId)
     values (#{mId,jdbcType=INTEGER}, #{rId,jdbcType=INTEGER})
   </insert>
@@ -41,6 +44,12 @@
         #{rId,jdbcType=INTEGER},
       </if>
     </trim>
+  </insert>
+  <insert id="insertRecord">
+    insert into menu_role (rid,mid) values
+    <foreach collection="mids" separator="," item="mid">
+      (#{rid},#{mid})
+    </foreach>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="edu.bupt.slms.bean.MenuRole">
     update menu_role

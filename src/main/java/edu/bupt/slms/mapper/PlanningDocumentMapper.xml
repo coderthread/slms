@@ -68,4 +68,7 @@
       aid = #{aid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectAllPlanningDocuments" resultMap="BaseResultMap">
+    select * from planning_document
+  </select>
 </mapper>

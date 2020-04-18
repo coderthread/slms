@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="edu.bupt.slms.mapper.LightToInstallMapper">
-  <resultMap id="BaseResultMap" type="edu.bupt.slms.bean.LightToInstall">
+<mapper namespace="edu.bupt.slms.mapper.LightsToInstallMapper">
+  <resultMap id="BaseResultMap" type="edu.bupt.slms.bean.LightsToInstall">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="pdid" jdbcType="INTEGER" property="pdid" />
   </resultMap>
@@ -24,11 +24,11 @@
     delete from lights_to_install
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="edu.bupt.slms.bean.LightToInstall">
+  <insert id="insert" parameterType="edu.bupt.slms.bean.LightsToInstall">
     insert into lights_to_install (id, pdid)
     values (#{id,jdbcType=INTEGER}, #{pdid,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="edu.bupt.slms.bean.LightToInstall">
+  <insert id="insertSelective" parameterType="edu.bupt.slms.bean.LightsToInstall">
     insert into lights_to_install
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -47,7 +47,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="edu.bupt.slms.bean.LightToInstall">
+  <update id="updateByPrimaryKeySelective" parameterType="edu.bupt.slms.bean.LightsToInstall">
     update lights_to_install
     <set>
       <if test="pdid != null">
@@ -56,9 +56,12 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="edu.bupt.slms.bean.LightToInstall">
+  <update id="updateByPrimaryKey" parameterType="edu.bupt.slms.bean.LightsToInstall">
     update lights_to_install
     set pdid = #{pdid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectAllLights" resultMap="BaseResultMap">
+    select * from lights_to_install
+  </select>
 </mapper>

@@ -19,4 +19,6 @@ public interface WPoleMapper {
     int updateByPrimaryKey(WPole record);
 
     List<WPole> getALlPoles();
+
+    List<WPole> selectAllWPoles();
 }

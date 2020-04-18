@@ -29,7 +29,17 @@ public class GoodsApply implements Serializable {
 
     private String applyTelephone;
 
+    private Integer proId;
+
     private static final long serialVersionUID = 1L;
+
+    public Integer getProId() {
+        return proId;
+    }
+
+    public void setProId(Integer proId) {
+        this.proId = proId;
+    }
 
     public String getApplyName() {
         return applyName;

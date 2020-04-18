@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="edu.bupt.slms.mapper.WellMappe">
+<mapper namespace="edu.bupt.slms.mapper.WellMapper">
   <resultMap id="BaseResultMap" type="edu.bupt.slms.bean.Well">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="end_lng" jdbcType="DOUBLE" property="end_lng" />
@@ -73,4 +73,7 @@
       pp_id = #{pp_id,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectAllWells" resultMap="BaseResultMap">
+    select * from well
+  </select>
 </mapper>

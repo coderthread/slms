@@ -1,6 +1,8 @@
 package edu.bupt.slms.bean;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -138,5 +140,13 @@ public class WLight implements Serializable {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Date makeDateFormat(Date d) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String s = sdf.format(d); // 把带时分秒的 date 转为 yyyy-MM-dd 格式的字符串
+        Date date = sdf.parse(s); // 把上面的字符串解析为日期类型
+        java.sql.Date resultDate = new java.sql.Date(date.getTime());
+        return resultDate;
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/warehouse/checkout")
@@ -26,7 +27,7 @@ public class WarehouseCheckoutController {
 
     //审核出库
     @PutMapping("/")
-    public RespBean updateGoodsAppliesStatus(GoodsApply goodsApply){
+    public RespBean updateGoodsAppliesStatus(@RequestBody GoodsApply goodsApply){
         Integer status = warehouseCheckoutService.updateGoodsAppliesStatus(goodsApply);
         if(status > 0) {
             return RespBean.ok("审核成功，状态更改为审核通过！");

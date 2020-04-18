@@ -5,12 +5,13 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="apply_Id" jdbcType="INTEGER" property="applyId" />
     <result column="error_id" jdbcType="INTEGER" property="errorId" />
+    <result column="pro_id" jdbcType="INTEGER" property="proId" />
     <result column="time" jdbcType="TIMESTAMP" property="time" />
     <result column="detail" jdbcType="VARCHAR" property="detail" />
     <result column="apply_status" jdbcType="VARCHAR" property="applyStatus" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, apply_id, error_id, `time`, detail
+    id, apply_id, error_id, `time`, detail, pro_id
   </sql>
 
   <resultMap id="AllInfo" type="edu.bupt.slms.bean.GoodsApply" extends="BaseResultMap">
@@ -31,6 +32,9 @@
       </if>
       <if test="errorId != null">
         error_id = #{errorId,jdbcType=INTEGER},
+      </if>
+      <if test="proId != null">
+        pro_id = #{proId,jdbcType=INTEGER},
       </if>
       <if test="time != null">
         `time` = #{time,jdbcType=TIMESTAMP},
@@ -57,19 +61,22 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.bupt.slms.bean.GoodsApply" useGeneratedKeys="true">
-    insert into goods_apply (apply_id, error_id, `time`,
+    insert into goods_apply (apply_id, error_id,pro_id, `time`,
       detail)
-    values (#{apply_id,jdbcType=INTEGER}, #{error_id,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP},
+    values (#{applyId,jdbcType=INTEGER}, #{errorId,jdbcType=INTEGER}, #{proId,jdbcType=INTEGER},#{pro_id,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP},
       #{detail,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.bupt.slms.bean.GoodsApply" useGeneratedKeys="true">
     insert into goods_apply
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="apply_id != null">
+      <if test="applyId != null">
         apply_id,
       </if>
-      <if test="error_id != null">
+      <if test="errorId != null">
         error_id,
+      </if>
+      <if test="proId != null">
+        pro_id,
       </if>
       <if test="time != null">
         `time`,
@@ -79,11 +86,14 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="apply_id != null">
+      <if test="applyId != null">
         #{apply_id,jdbcType=INTEGER},
       </if>
-      <if test="error_id != null">
+      <if test="errorId != null">
         #{error_id,jdbcType=INTEGER},
+      </if>
+      <if test="proId != null">
+        #{proId,jdbcType=INTEGER},
       </if>
       <if test="time != null">
         #{time,jdbcType=TIMESTAMP},
@@ -96,8 +106,9 @@
 
   <update id="updateByPrimaryKey" parameterType="edu.bupt.slms.bean.GoodsApply">
     update goods_apply
-    set apply_id = #{apply_id,jdbcType=INTEGER},
-      error_id = #{error_id,jdbcType=INTEGER},
+    set apply_id = #{applyId,jdbcType=INTEGER},
+      error_id = #{errorId,jdbcType=INTEGER},
+      pro_id = #{proId,jdbcType=INTEGER},
       `time` = #{time,jdbcType=TIMESTAMP},
       detail = #{detail,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}

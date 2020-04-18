@@ -2,7 +2,9 @@ package edu.bupt.slms.mapper;
 
 import edu.bupt.slms.bean.Well;
 
-public interface WellMappe {
+import java.util.List;
+
+public interface WellMapper {
     int deleteByPrimaryKey(Integer id);
 
     int insert(Well record);
@@ -14,4 +16,6 @@ public interface WellMappe {
     int updateByPrimaryKeySelective(Well record);
 
     int updateByPrimaryKey(Well record);
+
+    List<Well> selectAllWells();
 }

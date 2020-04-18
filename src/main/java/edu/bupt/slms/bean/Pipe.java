@@ -21,7 +21,7 @@ public class Pipe implements Serializable {
 
     private Integer total_holes_num;
 
-    private Integer avaliable_holes_num;
+    private Integer available_holes_num;
 
     private static final long serialVersionUID = 1L;
 
@@ -81,11 +81,11 @@ public class Pipe implements Serializable {
         this.total_holes_num = total_holes_num;
     }
 
-    public Integer getAvaliable_holes_num() {
-        return avaliable_holes_num;
+    public Integer getAvailable_holes_num() {
+        return available_holes_num;
     }
 
-    public void setAvaliable_holes_num(Integer avaliable_holes_num) {
-        this.avaliable_holes_num = avaliable_holes_num;
+    public void setAvailable_holes_num(Integer available_holes_num) {
+        this.available_holes_num = available_holes_num;
     }
 }

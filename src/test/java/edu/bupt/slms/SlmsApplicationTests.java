@@ -25,8 +25,9 @@ class SlmsApplicationTests {
     RuntimeService runtimeService;
     @Autowired
     TaskService taskService;
+    @Autowired
+    AccountService accountService;
 
-    private String processInstanceId;
 
 
     @Test
@@ -44,23 +45,11 @@ class SlmsApplicationTests {
     @Test
     public void testTask() {
         TaskQuery taskQuery = taskService.createTaskQuery();
-        System.out.println(processInstanceId);
         List<Task> tasks = taskQuery.taskAssignee("lisi").list();
         for (Task task : tasks) {
             System.out.println(task.getName());
             System.out.println(task.getId());
             taskService.complete(task.getId());
         }
-    }
-
-    @Autowired
-    AccountService accountService;
-    @Test
-    public void testAccount() {
-        List<Account> accounts = accountService.getAccountsByRoleNameZh("维修人员");
-        for (Account account : accounts) {
-            System.out.println(account);
-        }
-
     }
 }
