@@ -32,4 +32,5 @@ public class WarehouseShowService {
     public Integer updatePole(WPole wPole) {
         return wPoleMapper.updateByPrimaryKeySelective(wPole);
     }
+
 }
