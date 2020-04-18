@@ -16,19 +16,19 @@
     <result column="isFinish" jdbcType="INTEGER" property="isFinish" />
   </resultMap>
 
-  <select id="getAllPurchase" resultMap="BaseResultMap">
-    select * from purchase_list
-  </select>
+<!--  <select id="getAllPurchase" resultMap="BaseResultMap">-->
+<!--    select * from purchase_list-->
+<!--  </select>-->
 
-  <insert id="insertPurchaseList">
-    insert into w_light (goods,`type`, `name`, `number`,price,manufacturer,
-      ,purchase_date, production_date, life_time,
-      param,is_finish
-      )
-    values (#{goods,jdbcType=VARCHAR},#{type,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER},
-       #{price,jdbcType=DOUBLE}, #{purchaseDate,jdbcType=DATE}, #{productionDate,jdbcType=DATE},
-      #{lifeTime,jdbcType=DOUBLE}, #{param,jdbcType=VARCHAR},#{isFinish,jdbcType=Integer}
-      )
-  </insert>
+<!--  <insert id="insertPurchaseList">-->
+<!--    insert into w_light (goods,`type`, `name`, `number`,price,manufacturer,-->
+<!--      ,purchase_date, production_date, life_time,-->
+<!--      param,is_finish-->
+<!--      )-->
+<!--    values (#{goods,jdbcType=VARCHAR},#{type,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER},-->
+<!--       #{price,jdbcType=DOUBLE}, #{purchaseDate,jdbcType=DATE}, #{productionDate,jdbcType=DATE},-->
+<!--      #{lifeTime,jdbcType=DOUBLE}, #{param,jdbcType=VARCHAR},#{isFinish,jdbcType=Integer}-->
+<!--      )-->
+<!--  </insert>-->
 
 </mapper>
