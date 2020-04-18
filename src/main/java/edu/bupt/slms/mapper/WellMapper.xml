@@ -3,12 +3,12 @@
 <mapper namespace="edu.bupt.slms.mapper.WellMapper">
   <resultMap id="BaseResultMap" type="edu.bupt.slms.bean.Well">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="end_lng" jdbcType="DOUBLE" property="end_lng" />
-    <result column="end_lat" jdbcType="DOUBLE" property="end_lat" />
+    <result column="lng" jdbcType="DOUBLE" property="lng" />
+    <result column="lat" jdbcType="DOUBLE" property="lat" />
     <result column="pp_id" jdbcType="INTEGER" property="pp_id" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, end_lng, end_lat, pp_id
+    id, lng, lat, pp_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -21,30 +21,30 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.bupt.slms.bean.Well" useGeneratedKeys="true">
-    insert into well (end_lng, end_lat, pp_id
+    insert into well (lng, lat, pp_id
       )
-    values (#{end_lng,jdbcType=DOUBLE}, #{end_lat,jdbcType=DOUBLE}, #{pp_id,jdbcType=INTEGER}
+    values (#{lng,jdbcType=DOUBLE}, #{lat,jdbcType=DOUBLE}, #{pp_id,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.bupt.slms.bean.Well" useGeneratedKeys="true">
     insert into well
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="end_lng != null">
-        end_lng,
+      <if test="lng != null">
+        lng,
       </if>
-      <if test="end_lat != null">
-        end_lat,
+      <if test="lat != null">
+        lat,
       </if>
       <if test="pp_id != null">
         pp_id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="end_lng != null">
-        #{end_lng,jdbcType=DOUBLE},
+      <if test="lng != null">
+        #{lng,jdbcType=DOUBLE},
       </if>
-      <if test="end_lat != null">
-        #{end_lat,jdbcType=DOUBLE},
+      <if test="lat != null">
+        #{lat,jdbcType=DOUBLE},
       </if>
       <if test="pp_id != null">
         #{pp_id,jdbcType=INTEGER},
@@ -54,11 +54,11 @@
   <update id="updateByPrimaryKeySelective" parameterType="edu.bupt.slms.bean.Well">
     update well
     <set>
-      <if test="end_lng != null">
-        end_lng = #{end_lng,jdbcType=DOUBLE},
+      <if test="lng != null">
+        lng = #{lng,jdbcType=DOUBLE},
       </if>
-      <if test="end_lat != null">
-        end_lat = #{end_lat,jdbcType=DOUBLE},
+      <if test="lat != null">
+        lat = #{lat,jdbcType=DOUBLE},
       </if>
       <if test="pp_id != null">
         pp_id = #{pp_id,jdbcType=INTEGER},
@@ -68,12 +68,18 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="edu.bupt.slms.bean.Well">
     update well
-    set end_lng = #{end_lng,jdbcType=DOUBLE},
-      end_lat = #{end_lat,jdbcType=DOUBLE},
+    set lng = #{lng,jdbcType=DOUBLE},
+      lat = #{lat,jdbcType=DOUBLE},
       pp_id = #{pp_id,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectAllWells" resultMap="BaseResultMap">
     select * from well
+  </select>
+  <select id="selectByPPID" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from well
+    where pp_id = #{ppid,jdbcType=INTEGER}
   </select>
 </mapper>

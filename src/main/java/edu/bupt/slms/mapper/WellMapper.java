@@ -18,4 +18,6 @@ public interface WellMapper {
     int updateByPrimaryKey(Well record);
 
     List<Well> selectAllWells();
+
+    List<Well> selectByPPID(Integer ppid);
 }

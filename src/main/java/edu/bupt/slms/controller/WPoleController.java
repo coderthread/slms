@@ -69,10 +69,29 @@ public class WPoleController {
     }
 
     @PutMapping("/wPole")
-    public int updateWPole(@RequestBody String params){
+    public Map<String, Object> updateWPole(@RequestBody String params){
 
         System.out.println(params);
-        WPole wPole = JSONObject.parseObject(params, WPole.class);
-        return wPoleMapper.updateByPrimaryKey(wPole);
+        int i = 0;
+        int t = 0;
+        int success = 0;
+        WPole temp;
+        Map<String, Object> resultRes = new HashMap<>();
+
+        List<WPole> resultList = JSONArray.parseArray(params, WPole.class);
+        for(i = 0; i < resultList.size(); i++){
+            temp = resultList.get(i);
+            t = wPoleMapper.updateByPrimaryKey(temp);
+            if(t == 1){
+                success ++;
+            }
+        }
+        if(success == resultList.size()){
+            resultRes.put("success", 1);
+        }
+        else{
+            resultRes.put("success", 0);
+        }
+        return resultRes;
     }
 }

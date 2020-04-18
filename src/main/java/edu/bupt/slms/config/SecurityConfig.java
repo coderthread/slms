@@ -53,6 +53,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/swagger-resources/configuration/ui")
                 .antMatchers("/configuration/ui")
                 .antMatchers("/configuration/security");
+        //        以下URL为了便于测试全部忽略【刘璐】
+        web.ignoring().antMatchers("/originLights");
+        web.ignoring().antMatchers("/wPoles");
+        web.ignoring().antMatchers("/wPole");
+        web.ignoring().antMatchers("/wPole/**");
+        web.ignoring().antMatchers("/wLights");
+        web.ignoring().antMatchers("/wLight");
+        web.ignoring().antMatchers("/wLight/**");
+        web.ignoring().antMatchers("/lights");
+        web.ignoring().antMatchers("/light");
+        web.ignoring().antMatchers("/light/**");
+        web.ignoring().antMatchers("/poles");
+        web.ignoring().antMatchers("/pole");
+        web.ignoring().antMatchers("/pole/**");
+        web.ignoring().antMatchers("/pipes");
+        web.ignoring().antMatchers("/pipe");
+        web.ignoring().antMatchers("/pipe/**");
+        web.ignoring().antMatchers("/wells");
+        web.ignoring().antMatchers("/well");
+        web.ignoring().antMatchers("/well/**");
     }
 
     @Bean

@@ -68,10 +68,29 @@ public class WLightController {
     }
 
     @PutMapping("/wLight")
-    public int updateWLight(@RequestBody String params){
+    public Map<String, Object> updateWLight(@RequestBody String params){
 
         System.out.println(params);
-        WLight wLight = JSONObject.parseObject(params, WLight.class);
-        return wLightMapper.updateByPrimaryKey(wLight);
+        int i = 0;
+        int t = 0;
+        int success = 0;
+        WLight temp;
+        Map<String, Object> resultRes = new HashMap<>();
+
+        List<WLight> resultList = JSONArray.parseArray(params, WLight.class);
+        for(i = 0; i < resultList.size(); i++){
+            temp = resultList.get(i);
+            t = wLightMapper.updateByPrimaryKey(temp);
+            if(t == 1){
+                success ++;
+            }
+        }
+        if(success == resultList.size()){
+            resultRes.put("success", 1);
+        }
+        else{
+            resultRes.put("success", 0);
+        }
+        return resultRes;
     }
 }

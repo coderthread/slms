@@ -28,7 +28,7 @@ public class PoleController {
 
     @GetMapping("/poles")
     public List<PoleNode> getAllPoles() throws ParseException {
-        System.out.println("获取灯杆");
+        System.out.println("获取灯杆1");
         List<Pole> poles = poleMapper.selectAllPoles();
         List<PoleNode> resultPoles = new ArrayList<>();
         int i;
@@ -106,10 +106,29 @@ public class PoleController {
     }
 
     @PutMapping("/pole")
-    public int updatePole(@RequestBody String params){
+    public Map<String, Object> updatePole(@RequestBody String params){
 
         System.out.println(params);
-        Pole pole = JSONObject.parseObject(params, Pole.class);
-        return poleMapper.updateByPrimaryKey(pole);
+        int i = 0;
+        int t = 0;
+        int success = 0;
+        Pole temp;
+        Map<String, Object> resultRes = new HashMap<>();
+
+        List<Pole> resultList = JSONArray.parseArray(params, Pole.class);
+        for(i = 0; i < resultList.size(); i++){
+            temp = resultList.get(i);
+            t = poleMapper.updateByPrimaryKey(temp);
+            if(t == 1){
+                success ++;
+            }
+        }
+        if(success == resultList.size()){
+            resultRes.put("success", 1);
+        }
+        else{
+            resultRes.put("success", 0);
+        }
+        return resultRes;
     }
 }
