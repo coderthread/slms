@@ -44,4 +44,7 @@ public class ErrorService {
     }
 
 
+    public Error getErrorWithPoleByEId(String eId) {
+        return errorMapper.getErrorWithPoleByEId(eId);
+    }
 }

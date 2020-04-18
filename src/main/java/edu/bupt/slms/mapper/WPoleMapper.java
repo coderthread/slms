@@ -21,4 +21,8 @@ public interface WPoleMapper {
     List<WPole> getALlPoles();
 
     List<WPole> selectAllWPoles();
+
+    WPole getPoleByType(String type);
+
+    Integer updateNumberByType(WPole wPole1);
 }

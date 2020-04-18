@@ -25,6 +25,14 @@
     select * from w_light
   </select>
 
+  <select id="getLightByType" resultMap="BaseResultMap">
+    select * from w_light where `type`=#{type}
+  </select>
+
+  <update id="updateNumberByType" parameterType="edu.bupt.slms.bean.WLight">
+    update w_light set number=#{number} where id=#{id}
+  </update>
+
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
