@@ -38,6 +38,11 @@ public class ConstructionService {
         return constructionDetailMapper.selectByPid(id);
     }
 
+    //根据项目id返回项目属性
+    public ConstructionBill getBillService(Integer id) {
+        return constructionBillMapper.selectByPrimaryKey(id);
+    }
+
     //添加进度内容
     public RespBean addPlan(ConstructionDetail constructionDetail) {
         constructionDetailMapper.insertSelective(constructionDetail);
@@ -60,7 +65,6 @@ public class ConstructionService {
         constructionBill.setStatus("已完成");
         constructionBillMapper.updateByPrimaryKey(constructionBill);
 
-        System.out.println("////////////////////////////");
         List<LightToInstall> lights = lightToInstallMapper.selectByPdid(pdid);
         for (int i = 0; i < lights.size(); i++) {
             System.out.println(lights.get(i));

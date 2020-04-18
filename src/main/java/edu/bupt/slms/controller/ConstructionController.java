@@ -31,6 +31,12 @@ public class ConstructionController {
         return constructionService.getPlanList(id);
     }
 
+    //根据项目id返回项目属性
+    @GetMapping("/getBill")
+    public ConstructionBill getBill(Integer id) {
+        return constructionService.getBillService(id);
+    }
+
     //添加进度内容
     @PostMapping("/addPlan/")
     public RespBean addPlan(@RequestBody ConstructionDetail constructionDetail){
