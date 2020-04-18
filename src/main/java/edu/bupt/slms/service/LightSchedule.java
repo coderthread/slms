@@ -1,5 +1,6 @@
 package edu.bupt.slms.service;
 
+/*
 
 import edu.bupt.slms.bean.Light;
 import edu.bupt.slms.mapper.LightMapper;
@@ -43,3 +44,4 @@ public class LightSchedule {
         }
     }
 }
+*/

@@ -19,6 +19,10 @@ public class ConstructionBill {
 
     private String detail;
 
+    private String phone;
+
+    private String accountName;
+
     public Integer getId() {
         return id;
     }
@@ -81,5 +85,21 @@ public class ConstructionBill {
 
     public void setDetail(String detail) {
         this.detail = detail == null ? null : detail.trim();
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone == null ? null : phone.trim();
+    }
+
+    public String getAccountName() {
+        return accountName;
+    }
+
+    public void setAccountName(String accountName) {
+        this.accountName = accountName == null ? null : accountName.trim();
     }
 }

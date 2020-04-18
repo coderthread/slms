@@ -13,7 +13,7 @@ public interface ConstructionBillMapper {
 
     ConstructionBill selectByPrimaryKey(Integer id);
 
-    List<ConstructionBill> selectByAid(Integer aId);
+    List<ConstructionBill> selectByAid(Integer id);
 
     int updateByPrimaryKeySelective(ConstructionBill record);
 

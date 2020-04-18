@@ -31,10 +31,29 @@ public class ConstructionController {
         return constructionService.getPlanList(id);
     }
 
+    //根据项目id返回项目属性
+    @GetMapping("/getBill")
+    public ConstructionBill getBill(Integer id) {
+        return constructionService.getBillService(id);
+    }
+
     //添加进度内容
     @PostMapping("/addPlan/")
     public RespBean addPlan(@RequestBody ConstructionDetail constructionDetail){
         return constructionService.addPlan(constructionDetail);
+    }
+
+    //申请物资
+    @PostMapping("/addGoodsList/")
+    public RespBean addGoodsList(@RequestBody GoodsApply goodsApply){
+        return constructionService.addGoodsList(goodsApply);
+    }
+
+    //根据项目id,获取物资申请表
+    @GetMapping("/getGoods")
+    public List<GoodsApply> getGoods(Integer id)
+    {
+        return constructionService.getGoods(id);
     }
 
     //下载规划书，也就是返回规划书在服务器里的路径。

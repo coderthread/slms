@@ -10,9 +10,11 @@
     <result column="accountId" jdbcType="INTEGER" property="accountid" />
     <result column="status" jdbcType="VARCHAR" property="status" />
     <result column="detail" jdbcType="VARCHAR" property="detail" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="account_name" jdbcType="VARCHAR" property="accountName" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, name, timeLimit, time, location, accountId, status, detail
+    id, name, timeLimit, time, location, accountId, status, detail, phone, account_name
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -20,11 +22,12 @@
     from construction_bill
     where id = #{id,jdbcType=INTEGER}
   </select>
+
   <select id="selectByAid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from construction_bill
-    where accountId = #{aId,jdbcType=INTEGER}
+    where accountId = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from construction_bill
@@ -33,10 +36,12 @@
   <insert id="insert" parameterType="edu.bupt.slms.bean.ConstructionBill">
     insert into construction_bill (id, name, timeLimit, 
       time, location, accountId, 
-      status, detail)
+      status, detail, phone, 
+      account_name)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{timelimit,jdbcType=INTEGER}, 
       #{time,jdbcType=DATE}, #{location,jdbcType=VARCHAR}, #{accountid,jdbcType=INTEGER}, 
-      #{status,jdbcType=VARCHAR}, #{detail,jdbcType=VARCHAR})
+      #{status,jdbcType=VARCHAR}, #{detail,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{accountName,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="edu.bupt.slms.bean.ConstructionBill">
     insert into construction_bill
@@ -65,6 +70,12 @@
       <if test="detail != null">
         detail,
       </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="accountName != null">
+        account_name,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -90,6 +101,12 @@
       </if>
       <if test="detail != null">
         #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName != null">
+        #{accountName,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -117,6 +134,12 @@
       <if test="detail != null">
         detail = #{detail,jdbcType=VARCHAR},
       </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName != null">
+        account_name = #{accountName,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -128,7 +151,9 @@
       location = #{location,jdbcType=VARCHAR},
       accountId = #{accountid,jdbcType=INTEGER},
       status = #{status,jdbcType=VARCHAR},
-      detail = #{detail,jdbcType=VARCHAR}
+      detail = #{detail,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      account_name = #{accountName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
