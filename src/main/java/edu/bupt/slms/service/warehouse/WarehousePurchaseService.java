@@ -37,12 +37,12 @@ public class WarehousePurchaseService {
     }
 
     public int addLight(WLight wLight) {
-
-       return wLightMapper.insertSelective(wLight);
+        wLight.setCapacity(500);
+        return wLightMapper.insertSelective(wLight);
     }
 
     public int addPole(WPole wPole) {
-
+        wPole.setCapacity(200);
         return wPoleMapper.insertSelective(wPole);
     }
 }
