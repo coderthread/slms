@@ -27,7 +27,7 @@
     select
     <include refid="Base_Column_List" />
     from construction_bill
-    where accountId = #{id,jdbcType=INTEGER}
+    where accountId = #{id,jdbcType=INTEGER} and status = '进行中'
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from construction_bill
