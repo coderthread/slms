@@ -1,5 +1,7 @@
 package edu.bupt.slms.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class PurchaseList {
@@ -10,9 +12,11 @@ public class PurchaseList {
     private int number;
     private double price;
     private String manufacture;
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")  //json格式数据，日期的格式化
     private Date purchaseDate;
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")  //json格式数据，日期的格式化
     private Date productionDate;
-    private double liftTime;
+    private double lifeTime;
     private String param;
     private int isFinish;
 
@@ -88,12 +92,12 @@ public class PurchaseList {
         this.productionDate = productionDate;
     }
 
-    public double getLiftTime() {
-        return liftTime;
+    public double getLifeTime() {
+        return lifeTime;
     }
 
-    public void setLiftTime(double liftTime) {
-        this.liftTime = liftTime;
+    public void setLifeTime(double lifeTime) {
+        this.lifeTime = lifeTime;
     }
 
     public String getParam() {

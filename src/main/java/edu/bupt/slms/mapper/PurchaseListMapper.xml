@@ -13,22 +13,28 @@
     <result column="production_date" jdbcType="DATE" property="productionDate" />
     <result column="life_time" jdbcType="DOUBLE" property="lifeTime" />
     <result column="param" jdbcType="VARCHAR" property="param" />
-    <result column="isFinish" jdbcType="INTEGER" property="isFinish" />
+    <result column="is_finish" jdbcType="INTEGER" property="isFinish" />
   </resultMap>
 
-<!--  <select id="getAllPurchase" resultMap="BaseResultMap">-->
-<!--    select * from purchase_list-->
-<!--  </select>-->
+  <select id="getAllPurchase" resultMap="BaseResultMap">
+    select * from purchase_list
+  </select>
 
-<!--  <insert id="insertPurchaseList">-->
-<!--    insert into w_light (goods,`type`, `name`, `number`,price,manufacturer,-->
-<!--      ,purchase_date, production_date, life_time,-->
-<!--      param,is_finish-->
-<!--      )-->
-<!--    values (#{goods,jdbcType=VARCHAR},#{type,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER},-->
-<!--       #{price,jdbcType=DOUBLE}, #{purchaseDate,jdbcType=DATE}, #{productionDate,jdbcType=DATE},-->
-<!--      #{lifeTime,jdbcType=DOUBLE}, #{param,jdbcType=VARCHAR},#{isFinish,jdbcType=Integer}-->
-<!--      )-->
-<!--  </insert>-->
+  <insert id="insertPurchaseList" parameterType="edu.bupt.slms.bean.PurchaseList">
+    insert into purchase_list (goods,`type`,`name`,`number`,price,manufacture,purchase_date,production_date,life_time,param,is_finish)
+    values(#{goods,jdbcType=VARCHAR},#{type,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{number,jdbcType=INTEGER},
+       #{price,jdbcType=DOUBLE},#{name,jdbcType=VARCHAR},#{purchaseDate,jdbcType=DATE},#{productionDate,jdbcType=DATE},
+      #{lifeTime,jdbcType=DOUBLE},#{param,jdbcType=VARCHAR},#{isFinish,jdbcType=INTEGER})
+  </insert>
+
+  <update id="updatePurchaseById" parameterType="edu.bupt.slms.bean.PurchaseList">
+      update purchase_list
+      <set>
+        <if test="isFinish != null">
+          is_finish = #{isFinish,jdbcType=INTEGER},
+        </if>
+      </set>
+      where id = #{id,jdbcType=INTEGER}
+  </update>
 
 </mapper>
