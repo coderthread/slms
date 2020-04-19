@@ -9,4 +9,6 @@ public interface PurchaseListMapper {
     List<PurchaseList> getAllPurchase();
 
     Integer insertPurchaseList(PurchaseList purchaseList);
+
+    Integer updatePurchaseById(PurchaseList purchaseLists);
 }

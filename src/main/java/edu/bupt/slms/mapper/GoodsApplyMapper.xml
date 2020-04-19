@@ -45,8 +45,8 @@
     insert into goods_apply (id, apply_id, error_id, 
       time, detail, apply_status, 
       pro_id)
-    values (#{id,jdbcType=INTEGER}, #{applyId,jdbcType=INTEGER}, #{errorId,jdbcType=INTEGER}, 
-      #{time,jdbcType=TIMESTAMP}, #{detail,jdbcType=VARCHAR}, #{applyStatus,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER},#{applyId,jdbcType=INTEGER},#{errorId,jdbcType=INTEGER},
+      #{time,jdbcType=TIMESTAMP},#{detail,jdbcType=VARCHAR},#{applyStatus,jdbcType=VARCHAR},
       #{proId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="edu.bupt.slms.bean.GoodsApply">
