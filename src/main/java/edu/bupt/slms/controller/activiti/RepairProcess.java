@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -87,6 +88,14 @@ public class RepairProcess {
         taskService.complete(task.getId());
 
         return RespBean.ok("手动分配成功");
+    }
+
+
+    // 根据用户Id维修人员查询任务
+    @GetMapping("/fault/task/")
+    public List<Error> getTasks(){
+        // 该error包括account，pole和goodApply的数据。
+        return errorService.getTasksWithAId();
     }
 
     /**
