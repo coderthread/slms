@@ -85,7 +85,7 @@ public class ConstructionService {
             Integer current = lights.get(i).getId();//获得灯的id
             lightToInstallMapper.deleteByPrimaryKey(current);//删除该项，因为已经安装完成。
             Light light = lightMapper.selectByPrimaryKey(current);
-            light.setStatus("关闭");//对于刚完工的灯，设置状态为关闭。
+            light.setStatus("工作中");//对于刚完工的灯，设置状态为关闭。
             lightMapper.updateByPrimaryKey(light);
         }
 
