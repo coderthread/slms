@@ -32,8 +32,8 @@ public class WarehousePurchaseService {
         return purchaseListMapper.getAllPurchase();
     }
 
-    public int updatePurchaseListById(PurchaseList purchaseLists) {
-        return purchaseListMapper.updatePurchaseById(purchaseLists);
+    public int updatePurchaseListById(PurchaseList purchaseList) {
+        return purchaseListMapper.updatePurchaseById(purchaseList);
     }
 
     public int addLight(WLight wLight) {
