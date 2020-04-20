@@ -33,12 +33,12 @@
     delete from construction_bill
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="edu.bupt.slms.bean.ConstructionBill">
-    insert into construction_bill (id, name, timeLimit, 
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.bupt.slms.bean.ConstructionBill" useGeneratedKeys="true">
+    insert into construction_bill (name, timeLimit,
       time, location, accountId, 
       status, detail, phone, 
       account_name)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{timelimit,jdbcType=INTEGER}, 
+    values (#{name,jdbcType=VARCHAR}, #{timelimit,jdbcType=INTEGER},
       #{time,jdbcType=DATE}, #{location,jdbcType=VARCHAR}, #{accountid,jdbcType=INTEGER}, 
       #{status,jdbcType=VARCHAR}, #{detail,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
       #{accountName,jdbcType=VARCHAR})

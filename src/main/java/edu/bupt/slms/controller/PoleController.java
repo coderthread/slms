@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/basicData/map")
 public class PoleController {
 
     @Autowired

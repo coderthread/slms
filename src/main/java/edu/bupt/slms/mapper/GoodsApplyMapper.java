@@ -22,4 +22,8 @@ public interface GoodsApplyMapper {
     List<GoodsApply> getAllGoodsApplies();
 
     List<GoodsApply> getGoodsApplies(Integer eId);
+
+//    List<GoodsApply> getMaintainGoodsApplies();
+//
+//    List<GoodsApply> getProjectGoodsApplies();
 }

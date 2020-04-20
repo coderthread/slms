@@ -14,15 +14,34 @@
     id, apply_id, error_id, time, detail, apply_status, pro_id
   </sql>
 
-  <resultMap id="AllInfo" type="edu.bupt.slms.bean.GoodsApply" extends="BaseResultMap">
-    <result column="rname" property="applyType"></result>
-    <result column="name" property="applyName"></result>
-    <result column="tel" property="applyTelephone"></result>
-  </resultMap>
+    <resultMap id="AllInfo" type="edu.bupt.slms.bean.GoodsApply" extends="BaseResultMap">
+      <result column="rname" property="applyType"></result>
+      <result column="name" property="applyName"></result>
+      <result column="tel" property="applyTelephone"></result>
+    </resultMap>
 
   <select id="getAllGoodsApplies" resultMap="AllInfo">
     SELECT distinct ga.*,r.nameZh rname,acc.`name` name,acc.telephone tel FROM goods_apply ga,account acc,role r,account_role ar where ga.apply_id=acc.id and ga.apply_id=ar.rId and r.id=ar.rId
   </select>
+<!--  <resultMap id="MaintainInfo" type="edu.bupt.slms.bean.GoodsApply" extends="BaseResultMap">-->
+<!--    <result column="rname" property="applyType"></result>-->
+<!--    <result column="name" property="applyName"></result>-->
+<!--    <result column="tel" property="applyTelephone"></result>-->
+<!--  </resultMap>-->
+
+<!--  <resultMap id="ProjectInfo" type="edu.bupt.slms.bean.GoodsApply" extends="MaintainInfo">-->
+<!--    <result column="pname" property="proName"></result>-->
+<!--    <result column="location" property="proLocation"></result>-->
+<!--  </resultMap>-->
+
+<!--  <select id="getMaintainGoodsApplies" resultMap="MaintainInfo">-->
+<!--&#45;&#45;     SELECT distinct ga.*,r.nameZh rname,acc.`name` name,acc.telephone tel FROM goods_apply ga,account acc,role r,account_role ar where ga.apply_id=acc.id and ga.apply_id=ar.rId and r.id=ar.rId-->
+<!--    SELECT distinct ga.*,r.nameZh rname,acc.`name` name,acc.telephone tel FROM goods_apply ga,account acc,role r,account_role ar where ga.apply_id=acc.id and ga.apply_id=ar.rId and r.id=ar.rId and ga.pro_id is null-->
+<!--  </select>-->
+
+<!--  <select id="getProjectGoodsApplies" resultMap="ProjectInfo">-->
+<!--    SELECT distinct ga.*,r.nameZh rname,acc.`name` name,acc.telephone tel,pro.name pname, pro.location location FROM goods_apply ga,account acc,role r,account_role ar,project_info  pro where ga.apply_id=acc.id and ga.apply_id=ar.rId and r.id=ar.rId and ga.pro_id = pro.id-->
+<!--  </select>-->
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 

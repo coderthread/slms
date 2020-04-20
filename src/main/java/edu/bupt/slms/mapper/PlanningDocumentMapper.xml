@@ -19,10 +19,10 @@
     delete from planning_document
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.bupt.slms.bean.PlanningDocument" useGeneratedKeys="true">
-    insert into planning_document (details, aid
+  <insert id="insert" parameterType="edu.bupt.slms.bean.PlanningDocument">
+    insert into planning_document (id, details, aid
       )
-    values (#{details,jdbcType=VARCHAR}, #{aid,jdbcType=INTEGER}
+    values (#{id,jdbcType=INTEGER}, #{details,jdbcType=VARCHAR}, #{aid,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="edu.bupt.slms.bean.PlanningDocument">

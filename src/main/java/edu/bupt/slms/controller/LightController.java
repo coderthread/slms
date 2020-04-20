@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/basicData/map")
 public class LightController {
 
     @Autowired
@@ -118,7 +119,7 @@ public class LightController {
         constructionBillMapper.insert(bill);
 
         planningDocument.setAid(bill.getAccountid());
-        planningDocument.setId(0);
+        planningDocument.setId(bill.getId()); // planningDocument的id和ConstructionBill的id相同
         planningDocument.setDetails(file.getOriginalFilename().toLowerCase());
         planningDocumentMapper.insert(planningDocument);
         System.out.println("pdid:" + planningDocument.getId());
