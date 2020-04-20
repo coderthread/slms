@@ -3,6 +3,7 @@ package edu.bupt.slms.service;
 import edu.bupt.slms.bean.Error;
 import edu.bupt.slms.bean.RespPageBean;
 import edu.bupt.slms.mapper.ErrorMapper;
+import edu.bupt.slms.utils.AccountUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,5 +47,9 @@ public class ErrorService {
 
     public Error getErrorWithPoleByEId(String eId) {
         return errorMapper.getErrorWithPoleByEId(eId);
+    }
+
+    public List<Error> getTasksWithAId() {
+        return errorMapper.getTasksWithAId(AccountUtils.getCurrentAccount().getId());
     }
 }

@@ -5,13 +5,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 
 public class PurchaseList {
+
     private int id;
     private String goods;
     private String type;
     private String name;
     private int number;
     private double price;
-    private String manufacture;
+    private String manufacturer;
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")  //json格式数据，日期的格式化
     private Date purchaseDate;
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")  //json格式数据，日期的格式化
@@ -19,6 +20,15 @@ public class PurchaseList {
     private double lifeTime;
     private String param;
     private int isFinish;
+    private int isStore;
+
+    public int getIsStore() {
+        return isStore;
+    }
+
+    public void setIsStore(int isStore) {
+        this.isStore = isStore;
+    }
 
     public int getId() {
         return id;
@@ -68,12 +78,12 @@ public class PurchaseList {
         this.price = price;
     }
 
-    public String getManufacture() {
-        return manufacture;
+    public String getManufacturer() {
+        return manufacturer;
     }
 
-    public void setManufacture(String manufacture) {
-        this.manufacture = manufacture;
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
     }
 
     public Date getPurchaseDate() {

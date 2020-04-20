@@ -20,4 +20,8 @@ public interface GoodsApplyMapper {
     int updateByPrimaryKey(GoodsApply record);
 
     List<GoodsApply> getAllGoodsApplies();
+
+//    List<GoodsApply> getMaintainGoodsApplies();
+//
+//    List<GoodsApply> getProjectGoodsApplies();
 }

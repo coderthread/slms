@@ -33,7 +33,18 @@ public class Error implements Serializable {
 
     private RespAccount account ;
 
+    // 暂定只能申请一次物资
+    private GoodsApply goodsApply;
+
     private static final long serialVersionUID = 1L;
+
+    public GoodsApply getGoodsApply() {
+        return goodsApply;
+    }
+
+    public void setGoodsApply(GoodsApply goodsApply) {
+        this.goodsApply = goodsApply;
+    }
 
     public Integer getpId() {
         return pId;
