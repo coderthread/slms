@@ -26,7 +26,7 @@ public interface ErrorMapper {
     List<Error> getErrorByPage(@Param("part") Boolean part,@Param("page") Integer page, @Param("size") Integer size, @Param("error") Error error,
                                @Param("dateScope") Date[] dateScope);
 
-    Error getErrorWithPoleByEId(String eId);
-
     List<Error> getTasksWithAId(Integer aId);
+
+    List<Error> getHistoryTasksWithAId(Integer aId);
 }

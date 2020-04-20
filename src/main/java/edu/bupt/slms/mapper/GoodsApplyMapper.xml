@@ -37,7 +37,10 @@
     from goods_apply
     where pro_id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="getGoodsApplies" resultMap="BaseResultMap">
+      SELECT * FROM goods_apply ga WHERE ga.`error_id`=#{eId};
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from goods_apply
     where id = #{id,jdbcType=INTEGER}
   </delete>

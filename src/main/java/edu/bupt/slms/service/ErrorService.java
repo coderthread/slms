@@ -44,12 +44,15 @@ public class ErrorService {
         return respPageBean;
     }
 
-
-    public Error getErrorWithPoleByEId(String eId) {
-        return errorMapper.getErrorWithPoleByEId(eId);
-    }
-
     public List<Error> getTasksWithAId() {
         return errorMapper.getTasksWithAId(AccountUtils.getCurrentAccount().getId());
+    }
+
+    public List<Error> getHistoryTasksWithAId() {
+        return errorMapper.getHistoryTasksWithAId(AccountUtils.getCurrentAccount().getId());
+    }
+
+    public Error getErrorId(Integer key) {
+        return errorMapper.selectByPrimaryKey(key);
     }
 }

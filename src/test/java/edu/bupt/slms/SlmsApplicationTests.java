@@ -1,6 +1,7 @@
 package edu.bupt.slms;
 
 import edu.bupt.slms.bean.Account;
+import edu.bupt.slms.bean.RespAccount;
 import edu.bupt.slms.service.AccountService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
@@ -39,7 +40,10 @@ class SlmsApplicationTests {
 
     @Test
     public void test1() {
-        runtimeService.startProcessInstanceByKey("myProcess");
+        List<RespAccount> accounts = accountService.getAccountsByRoleNameZh("维修人员", null);
+        for (RespAccount account : accounts) {
+            System.out.println(account);
+        }
     }
 
     @Test

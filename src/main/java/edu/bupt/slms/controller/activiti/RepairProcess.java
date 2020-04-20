@@ -6,6 +6,7 @@ import edu.bupt.slms.bean.RespBean;
 import edu.bupt.slms.service.ErrorService;
 import edu.bupt.slms.service.SystemConfigService;
 import edu.bupt.slms.service.activiti.repairService;
+import edu.bupt.slms.utils.AccountUtils;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.runtime.ProcessInstance;
@@ -98,6 +99,13 @@ public class RepairProcess {
         return errorService.getTasksWithAId();
     }
 
+    // 根据用户Id维修人员查询 历史 任务
+    @GetMapping("/fault/task/history")
+    public List<Error> getHistoryTasks(){
+        // 该error包括account，pole和goodApply的数据。
+        return errorService.getHistoryTasksWithAId();
+    }
+
     /**
      * 韩 宁
      * 维修人员接受任务
@@ -107,7 +115,7 @@ public class RepairProcess {
      * @param accept
      * @return
      */
-    @GetMapping("/maintain/accept")
+    @GetMapping("/fault/task/accept")
     public RespBean acceptTask(Integer eId, Boolean accept) {
         Task task = taskService.createTaskQuery()
                 .processInstanceBusinessKey(String.valueOf(eId))
@@ -124,6 +132,7 @@ public class RepairProcess {
             Error error = new Error();
             error.setId(eId);
             error.setStatus("unDistribution");
+
             errorService.updateError(error);
         }
         // 完成任务
@@ -135,10 +144,11 @@ public class RepairProcess {
     //完成任务
 
 
-    @PostMapping("/finish/")
+    @PostMapping("/fault/task/finish/")
     public RespBean complete(@RequestBody Receipt receipt) {
 
-        String aId = receipt.getAccountId().toString();
+        //根据 errorId 更新 receipt
+        String aId = AccountUtils.getCurrentAccount().getId().toString();
         String eId = receipt.getErrorId().toString();
 
         Task task = taskService//
@@ -147,9 +157,13 @@ public class RepairProcess {
                 .processInstanceBusinessKey(eId)
                 .taskName("维修")//指定个人任务查询
                 .singleResult();
-
+        if (task == null){
+            return RespBean.error("工作流中没有该任务！");
+        }
         taskService.complete(task.getId());
-        System.out.println("新增回单");
-        return rs.RepairComplete(receipt);
+        if (rs.RepairComplete(receipt) == 3){
+            return RespBean.ok("回单以提交");
+        }
+        return RespBean.error("回单提交失败！");
     }
 }

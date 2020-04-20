@@ -42,8 +42,8 @@ public class ErrorMail {
             helper.setSubject("故障报警");
             helper.setSentDate(new Date());
             Context context = new Context();
-            context.setVariable("poleId",error.getPole().getId());
-            context.setVariable("polePosition",error.getPole().getPosition());
+            context.setVariable("poleId",error.getpId());
+            context.setVariable("address",error.getAddress());
             context.setVariable("date",error.getDate());
             context.setVariable("type",error.getType());
             context.setVariable("des",error.getDes());

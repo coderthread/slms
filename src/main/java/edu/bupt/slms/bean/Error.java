@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * error
@@ -29,20 +30,27 @@ public class Error implements Serializable {
 
     private Integer pId;
 
-    private Pole pole;
+    private Integer lightId;
 
     private RespAccount account ;
 
-    // 暂定只能申请一次物资
-    private GoodsApply goodsApply;
+    private List<GoodsApply> goodsApply;
 
     private static final long serialVersionUID = 1L;
 
-    public GoodsApply getGoodsApply() {
+    public Integer getLightId() {
+        return lightId;
+    }
+
+    public void setLightId(Integer lightId) {
+        this.lightId = lightId;
+    }
+
+    public List<GoodsApply> getGoodsApply() {
         return goodsApply;
     }
 
-    public void setGoodsApply(GoodsApply goodsApply) {
+    public void setGoodsApply(List<GoodsApply> goodsApply) {
         this.goodsApply = goodsApply;
     }
 
@@ -52,14 +60,6 @@ public class Error implements Serializable {
 
     public void setpId(Integer pId) {
         this.pId = pId;
-    }
-
-    public Pole getPole() {
-        return pole;
-    }
-
-    public void setPole(Pole pole) {
-        this.pole = pole;
     }
 
     public RespAccount getAccount() {
@@ -145,7 +145,10 @@ public class Error implements Serializable {
                 ", importance=" + importance +
                 ", status='" + status + '\'' +
                 ", aId=" + aId +
+                ", pId=" + pId +
+                ", lightId=" + lightId +
                 ", account=" + account +
+                ", goodsApply=" + goodsApply +
                 '}';
     }
 }

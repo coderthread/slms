@@ -54,7 +54,7 @@
       WHERE r.`nameZh`= #{nameZh} AND
         r.`id` = ar.`rId` AND
         ar.`aId` = a.`id`
-        <if test="account.id != null">
+        <if test="account.id != null and account.name != ''">
             AND a.id = #{account.id}
         </if>
         <if test="account.name != null and account.name != ''">

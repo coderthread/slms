@@ -3,6 +3,7 @@ package edu.bupt.slms.service.activiti;
 import edu.bupt.slms.bean.Error;
 import edu.bupt.slms.bean.*;
 import edu.bupt.slms.mapper.ErrorMapper;
+import edu.bupt.slms.mapper.LightMapper;
 import edu.bupt.slms.mapper.ReceiptMapper;
 import edu.bupt.slms.mapper.RepairBillMapper;
 import edu.bupt.slms.service.AccountService;
@@ -13,6 +14,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -36,19 +38,27 @@ public class repairService {
     ReceiptMapper receiptMapper;
     @Autowired
     RabbitTemplate rabbitTemplate;
+    @Autowired
+    LightMapper lightMapper;
 
     public void alarm(DelegateExecution execution) {
-        // 故障报警是不是要用消息中间件或邮箱等服务
         String key = execution.getProcessInstanceBusinessKey();
-        System.out.println(key);
+        Error error = errorService.getErrorId(Integer.valueOf(key));
+        // 更改地图中light的状态为故障
+        if (error.getLightId() != null){
+            Light light = new Light();
+            light.setId(error.getLightId());
+            light.setStatus("故障");
+            lightMapper.updateByPrimaryKeySelective(light);
+        }
         // 查出故障信息放到消息队列，给谁发邮件先写死，待定
-        Error error = errorService.getErrorWithPoleByEId(key);
         rabbitTemplate.convertAndSend("slms.mail.errorAlarm",error);
     }
 
     public void autoDis(DelegateExecution delegateExecution) {
         // 1. 先简单处理获取所有的维修人员，分配给第一个
-        List<RespAccount> maintainers = accountService.getAccountsByRoleNameZh("维修人员",null);
+        Account account = new Account();
+        List<RespAccount> maintainers = accountService.getAccountsByRoleNameZh("维修人员",account);
         String errorId = delegateExecution.getProcessInstanceBusinessKey();
         Integer maintainer = maintainers.get(0).getId();
         runtimeService.setVariable(delegateExecution.getId(), "maintainer", maintainer);
@@ -72,41 +82,37 @@ public class repairService {
 
         //增加工单项
         Error error = errorMapper.selectByPrimaryKey( Integer.valueOf(key));
-        RepairBill repairbill = new RepairBill();
-        repairbill.setaId(error.getaId());
-        repairbill.seteId(error.getId());
-        repairbill.setStartTime(error.getDate());
-        //在error中找不到工单的时限。
-        repairbill.setTimeLimit(3);
-        repairBillMapper.insert(repairbill);
+        Receipt receipt = new Receipt();
+        receipt.setAccountId(error.getaId());
+        receipt.setErrorId(error.getId());
+        receipt.setStartTime(new Date());
+        receiptMapper.insertSelective(receipt);
         //修改error状态
         error.setStatus("fixing");
-        errorMapper.updateByPrimaryKey(error);
+        errorMapper.updateByPrimaryKeySelective(error);
 
         System.out.println("生成工单！");
     }
 
 
     /**
-     * ⑤维修人员维修完成并填写回单，也就是在Receipt表中新增一项,并且修改error中的状态status#{ActivityDemoServiceImpl.refuseToRepair(execution,error)}
-     * @param receipt
-     * @return
+     * 更新回单
      */
-    public RespBean RepairComplete(Receipt receipt ){
+    public int RepairComplete(Receipt receipt ){
 
-        try {
-            //更新error状态
-            Integer eId = receipt.getErrorId();
-            Error error = errorMapper.selectByPrimaryKey(eId);
-            error.setStatus("finished");
-            errorMapper.updateByPrimaryKey(error);
-             //插入回单项
-            receiptMapper.insertSelective(receipt);
-            return RespBean.ok("创建回单成功");
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        return RespBean.error("创建回单失败");
+        receipt.setEndTime(new Date());
+
+        int result1 = receiptMapper.updateByErrorIdSelective(receipt);
+        Error error = errorService.getErrorId(receipt.getErrorId());
+        // 更改error的状态为已完成
+        error.setStatus("finished");
+        int result2 = errorMapper.updateByPrimaryKeySelective(error);
+        //将修好灯的状态改为工作中
+        Light light = new Light();
+        light.setId(error.getLightId());
+        light.setStatus("工作中");
+        int result3 = lightMapper.updateByPrimaryKeySelective(light);
+        return result1 + result2 + result3;
 
     }
 

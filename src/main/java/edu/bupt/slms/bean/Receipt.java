@@ -10,15 +10,24 @@ import java.util.Date;
 public class Receipt implements Serializable {
     private Integer id;
 
+    /**
+     * 工单生成时间
+     */
     private Date startTime;
 
+    /**
+     * 工单完成时间
+     */
     private Date endTime;
 
     private Integer accountId;
 
     private Integer errorId;
 
-    private Integer goodsId;
+    /**
+     * 故障原因
+     */
+    private String reason;
 
     private static final long serialVersionUID = 1L;
 
@@ -62,11 +71,11 @@ public class Receipt implements Serializable {
         this.errorId = errorId;
     }
 
-    public Integer getGoodsId() {
-        return goodsId;
+    public String getReason() {
+        return reason;
     }
 
-    public void setGoodsId(Integer goodsId) {
-        this.goodsId = goodsId;
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 }

@@ -8,18 +8,12 @@
     <result column="des" jdbcType="VARCHAR" property="des" />
     <result column="importance" jdbcType="INTEGER" property="importance" />
     <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="aId" jdbcType="INTEGER" property="aId" />
     <result column="pId" jdbcType="INTEGER" property="pId" />
+    <result column="lightId" jdbcType="INTEGER" property="lightId" />
   </resultMap>
-  <resultMap id="ErrorWithPole" type="edu.bupt.slms.bean.Error" extends="BaseResultMap">
-    <association property="pole" javaType="edu.bupt.slms.bean.Pole">
-      <id column="pid" property="id"/>
-      <result column="ppos" property="position"/>
-      <result column="plat" property="latitude"/>
-      <result column="plon" property="longitude"/>
-    </association>
-  </resultMap>
-  <resultMap id="ErrorWithAccountAndPole" type="edu.bupt.slms.bean.Error" extends="ErrorWithPole">
+  <resultMap id="ErrorWithAccount" type="edu.bupt.slms.bean.Error" extends="BaseResultMap">
     <association property="account" javaType="edu.bupt.slms.bean.RespAccount">
       <id column="accountid" jdbcType="INTEGER" property="id"/>
       <result column="ausername" property="username"/>
@@ -31,16 +25,16 @@
       <result column="aidcard" jdbcType="VARCHAR" property="idCard"/>
     </association>
   </resultMap>
-  <resultMap id="ErrorWithAll" type="edu.bupt.slms.bean.Error" extends="ErrorWithPole">
-    <association property="goodsApply" javaType="edu.bupt.slms.bean.GoodsApply">
+  <resultMap id="ErrorWithGoods" type="edu.bupt.slms.bean.Error" extends="BaseResultMap">
+    <collection property="goodsApply" ofType="edu.bupt.slms.bean.GoodsApply">
       <id column="gaid" property="id"/>
       <result column="gatime" property="time"/>
       <result column="gadetail" property="detail"/>
       <result column="gastatus" property="applyStatus"/>
-    </association>
-  </resultMap>
+    </collection>
+   </resultMap>
   <sql id="Base_Column_List">
-    id, `date`, `type`, des, address, importance, `status`, aId, pId
+    id, `date`, `type`, des, address, importance, `status`,address, aId, pId, lightId
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -67,7 +61,7 @@
           AND e.type = #{error.type}
         </if>
         <if test="error.address != null and error.address != ''">
-          AND p.`position` = #{error.address}
+          AND e.address = #{error.address}
         </if>
         <if test="error.status != null and error.status != ''">
           AND e.status = #{error.status}
@@ -80,25 +74,19 @@
         </if>
       </where>
     </select>
-  <select id="getErrorByPage" resultMap="ErrorWithAccountAndPole">
+  <select id="getErrorByPage" resultMap="ErrorWithAccount">
     SELECT
-    e.*,
-    p.id pid,
-    p.`position` ppos,
-    p.`latitude` plat,
-    p.`longitude` plon,
-    a.id accountid,
-    a.`username` ausername,
-    a.`name` aname,
-    a.`phone` aphone,
-    a.`telephone` atelephone,
-    a.`age` aage,
-    a.`gender` agender,
-    a.`idcard` aidcard
+      e.*,
+      a.id accountid,
+      a.`username` ausername,
+      a.`name` aname,
+      a.`phone` aphone,
+      a.`telephone` atelephone,
+      a.`age` aage,
+      a.`gender` agender,
+      a.`idcard` aidcard
     FROM
-    error e
-    LEFT JOIN pole p
-    ON e.`pId`=p.`id`
+      error e
     LEFT JOIN account a
     ON e.`aId` = a.`id`
     <where>
@@ -115,7 +103,7 @@
         AND e.type = #{error.type}
       </if>
       <if test="error.address != null and error.address != ''">
-        AND p.`position` = #{error.address}
+        AND e.address = #{error.address}
       </if>
       <if test="error.status != null and error.status != ''">
         AND e.status = #{error.status}
@@ -134,47 +122,43 @@
       #{page},#{size}
     </if>
   </select>
-  <select id="getErrorWithPoleByEId" resultMap="ErrorWithPole">
-    SELECT
-      e.*,
-      p.id pid,
-      p.`position` ppos,
-      p.`latitude` plat,
-      p.`longitude` plon
-    FROM
-      error e
-      LEFT JOIN pole p
-      ON e.`pId`=p.`id`
-    WHERE e.`id`=#{eId};
-  </select>
-    <select id="getTasksWithAId" resultMap="ErrorWithAll">
+    <select id="getTasksWithAId" resultMap="ErrorWithGoods">
       SELECT
         e.*,
-        p.`position` ppos,
-        p.`latitude` plat,
-        p.`longitude` plon,
         ga.`id` gaid,
         ga.`time` gatime,
         ga.`detail` gadetail,
         ga.`apply_status` gastatus
       FROM
         error e
-        LEFT JOIN pole p
-          ON e.`pId` = p.`id`
         LEFT JOIN goods_apply ga
           ON ga.`error_id` = e.`id`
-      WHERE e.`aId` = #{aId}
-      ORDER BY e.`id` DESC;
+      WHERE e.`aId` = #{aId} AND e.`status`='ready' OR e.`status`='fixing'
+      ORDER BY e.`status`,e.`id` DESC;
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <select id="getHistoryTasksWithAId" resultMap="ErrorWithGoods">
+    SELECT
+        e.*,
+        ga.`id` gaid,
+        ga.`time` gatime,
+        ga.`detail` gadetail,
+        ga.`apply_status` gastatus
+      FROM
+        error e
+        LEFT JOIN goods_apply ga
+          ON ga.`error_id` = e.`id`
+      WHERE e.`aId` = #{aId} AND e.`status`='finished'
+      ORDER BY e.`id` DESC;
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from error
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="edu.bupt.slms.bean.Error" useGeneratedKeys="true">
     insert into error (`date`, `type`, des, importance, `status`,
-      aId, pId)
+      aId, pId, address, lightId)
     values (#{date,jdbcType=TIMESTAMP}, #{type,jdbcType=VARCHAR}, #{des,jdbcType=VARCHAR}, #{importance,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR},
-      #{aId,jdbcType=INTEGER},#{pId,jdbcType=INTEGER})
+      #{aId,jdbcType=INTEGER},#{pId,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR},#{lightId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="edu.bupt.slms.bean.Error" useGeneratedKeys="true">
     insert into error
@@ -200,6 +184,12 @@
       <if test="pId != null">
         pId,
       </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="lightId != null">
+        lightId,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="date != null">
@@ -222,6 +212,12 @@
       </if>
       <if test="pId != null">
         #{pId,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="lightId != null">
+        #{lightId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -249,6 +245,12 @@
       <if test="pId != null">
         pId = #{pId,jdbcType=INTEGER},
       </if>
+      <if test="address != null">
+        des = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="lightId != null">
+        pId = #{lightId,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -260,7 +262,9 @@
       importance = #{importance,jdbcType=INTEGER},
       `status` = #{status,jdbcType=VARCHAR},
       aId = #{aId,jdbcType=INTEGER},
-      pId = #{pId,jdbcType=INTEGER}
+      pId = #{pId,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      lightId = #{lightId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

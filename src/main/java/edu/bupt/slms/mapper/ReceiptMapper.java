@@ -14,4 +14,6 @@ public interface ReceiptMapper {
     int updateByPrimaryKeySelective(Receipt record);
 
     int updateByPrimaryKey(Receipt record);
+
+    int updateByErrorIdSelective(Receipt receipt);
 }
