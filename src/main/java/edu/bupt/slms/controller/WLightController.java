@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import edu.bupt.slms.bean.WLight;
 import edu.bupt.slms.mapper.WLightMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +21,20 @@ public class WLightController {
     WLightMapper wLightMapper;
 
     @GetMapping("/wLights")
-    public List<WLight> getAllWLights(){ return wLightMapper.selectAllWLights(); }
+    public List<WLight> getAllWLights() throws ParseException {
+
+        List<WLight> lights = wLightMapper.selectAllWLights();
+        int i;
+        WLight temp;
+        for (i = 0; i < lights.size(); i++) {
+            temp = new WLight();
+            BeanUtils.copyProperties(lights.get(i), temp);
+            temp.setProductionDate(temp.makeDateFormat(temp.getProductionDate()));
+            temp.setPurchaseDate(temp.makeDateFormat(temp.getPurchaseDate()));
+            lights.set(i, temp);
+        }
+        return lights;
+    }
 
     @GetMapping("/wLight/{id}")
     public WLight getWLightById(@PathVariable("id") Integer id) throws ParseException {
