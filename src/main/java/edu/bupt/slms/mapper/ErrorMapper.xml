@@ -31,6 +31,14 @@
       <result column="aidcard" jdbcType="VARCHAR" property="idCard"/>
     </association>
   </resultMap>
+  <resultMap id="ErrorWithAll" type="edu.bupt.slms.bean.Error" extends="ErrorWithPole">
+    <association property="goodsApply" javaType="edu.bupt.slms.bean.GoodsApply">
+      <id column="gaid" property="id"/>
+      <result column="gatime" property="time"/>
+      <result column="gadetail" property="detail"/>
+      <result column="gastatus" property="applyStatus"/>
+    </association>
+  </resultMap>
   <sql id="Base_Column_List">
     id, `date`, `type`, des, address, importance, `status`, aId, pId
   </sql>
@@ -139,7 +147,26 @@
       ON e.`pId`=p.`id`
     WHERE e.`id`=#{eId};
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="getTasksWithAId" resultMap="ErrorWithAll">
+      SELECT
+        e.*,
+        p.`position` ppos,
+        p.`latitude` plat,
+        p.`longitude` plon,
+        ga.`id` gaid,
+        ga.`time` gatime,
+        ga.`detail` gadetail,
+        ga.`apply_status` gastatus
+      FROM
+        error e
+        LEFT JOIN pole p
+          ON e.`pId` = p.`id`
+        LEFT JOIN goods_apply ga
+          ON ga.`error_id` = e.`id`
+      WHERE e.`aId` = #{aId}
+      ORDER BY e.`id` DESC;
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from error
     where id = #{id,jdbcType=INTEGER}
   </delete>

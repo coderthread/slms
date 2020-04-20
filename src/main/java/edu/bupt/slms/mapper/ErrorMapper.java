@@ -27,4 +27,6 @@ public interface ErrorMapper {
                                @Param("dateScope") Date[] dateScope);
 
     Error getErrorWithPoleByEId(String eId);
+
+    List<Error> getTasksWithAId(Integer aId);
 }
